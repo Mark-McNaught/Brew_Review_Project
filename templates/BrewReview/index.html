@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>Filler Page</title>
+</head>
+
+<body>
+    <h1>Filler Page</h1>
+    <div>
+        I've created this page just to follow along with the tango with django tutorial to test the setup worked <br />
+        <strong>{{ boldmessage }}</strong><br />
+    </div>
+    <div>
+        <img src="{% static 'images/download.jpg' %}" alt="Test Picture" />
+        <img src="{{ MEDIA_URL }}OIP.jpg" alt="Media test image"/>
+    </div>
+</body>
+
+</html>
