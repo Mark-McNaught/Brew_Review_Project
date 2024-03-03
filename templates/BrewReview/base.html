@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>
+    {% block title_block %}
+    {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+<body>
+
+    <div class="titlebar">
+        <h1>{% block heading_block %}{% endblock%}
+            <a href="/BrewReview/login/">Log in</a>
+        <a href="/BrewReview/signup/">Sign Up</a>
+        </h1>
+
+        
+
+    </div><br>
+
+    <div class="navbar">
+        <a href="/BrewReview/">Home</a>
+            <a href="/BrewReview/map/">Map</a>
+            <a href="/BrewReview/shops/">Shops</a>
+            <a href="/BrewReview/profile/">User Profile</a>
+        
+    </div><br>
+
+    {% block body_block %}
+    {% endblock %}
+</body>
+</html>
