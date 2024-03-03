@@ -24,3 +24,6 @@ def signup(request):
 
 def settings(request):
     return HttpResponse("user settings page goes here")
+
+def login(request):
+    return HttpResponse("log in page goes here")
