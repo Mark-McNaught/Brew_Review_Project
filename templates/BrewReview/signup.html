@@ -1,0 +1,29 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+{% block heading_block %}
+Sign Up 
+{% endblock %}
+
+{% block body_block %}
+<h1>Sign up for Brew Review</h1>
+<h1>Still need changes to match spec</h1>
+{% if registered %}
+<strong>thank you for registering!</strong>
+<a href="{% url 'BrewReview:index' %}">Return to the homepage.</a><br />
+{% else %}
+<form id="user_form" method="post" action="{% url 'BrewReview:signup' %}" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+
+    <!-- Provide a button to click to submit the form. -->
+    <input type="submit" name="submit" value="Sign Up" />
+</form>
+{% endif %}
+{% endblock %}
