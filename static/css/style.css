@@ -4,3 +4,5 @@
 .navbar{width:100%; background-color:darkolivegreen;}
 .navbar a{float:left; background-color:green;color: black; width: 12.5%; text-align: center; }
 .navbar a:hover{background-color: grey;}
+#map {height: 400px; width:100px;} /*not working */
+

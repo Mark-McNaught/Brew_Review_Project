@@ -2,6 +2,7 @@
 {% load staticfiles %}
 <html>
 
+
 <head>
     <title>
     {% block title_block %}
@@ -9,13 +10,14 @@
     </title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    {% block header_block %}
 </head>
-
+{% endblock %}
 <body>
 
     <div class="titlebar">
         <h1>{% block heading_block %}{% endblock%}
-            <a href="/BrewReview/login/">Log in</a>
+        <a href="/BrewReview/login/">Log in</a>
         <a href="/BrewReview/signup/">Sign Up</a>
         </h1>
 

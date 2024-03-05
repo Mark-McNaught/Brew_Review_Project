@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'BrewReview/index.html', context=context_dict)
 
 def map(request):
-    return HttpResponse("Map page goes here")
+    return render(request, 'BrewReview/map.html')
 
 def shops(request):
     return HttpResponse("shops page goes here")
