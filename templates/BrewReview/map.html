@@ -40,9 +40,11 @@
 {% block body_block %}
     {% if shops %}
         {% for coffee_shop in shops %}
-            <p hidden id="name">{{ coffee_shop.name }</p>
-            <p hidden id="lat">{{ coffee_shop.lat }}</p>
-            <p hidden id="lng">{{ coffee_shop.lng}}</p>
+            <ul>
+            <p id="name">{{ coffee_shop.name }</p>
+<!--            <p id="lat">{{ coffee_shop.lat }}</p>-->
+<!--            <p id="lng">{{ coffee_shop.lng}}</p>-->
+            </ul>
                 <script>
                     const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
                     const marker = new AdvancedMarkerElement({

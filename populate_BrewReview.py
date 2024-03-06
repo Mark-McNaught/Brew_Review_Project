@@ -176,15 +176,19 @@ def populate():
 
     # Create CoffeeShops
     coffee_shops = []
+    starting_lat = 55.8724
+    starting_lng = -4.2900
     for shop_info in coffee_shop_data:
         address = Addresses.objects.create(
             address_line_1=shop_info["address_line_1"],
             postcode=shop_info["postcode"],
             city=shop_info["city"],
             country=shop_info["country"],
-            lat=0.0,  # Provide latitude value here
-            long=0.0   # Provide longitude value here
+            lat=starting_lat,  # Provide latitude value here
+            lng=starting_lng   # Provide longitude value here
         )
+        # starting_lng += 1
+        # starting_lat += 1
         coffee_shop = CoffeeShop.objects.create(
             name=shop_info["name"],
             address=address,
@@ -211,6 +215,7 @@ def populate():
                 review=random.choice(review_data)
             )
             review.save()
+
 
 if __name__ == '__main__':
     print('Starting BrewReview population script...')
