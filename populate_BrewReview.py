@@ -105,7 +105,7 @@ def populate():
     {
         "name": "Coffee Shop F",
         "address_line_1": "1315 Oak St",
-        "post_code": "54321",
+        "postcode": "54321",
         "city": "Somewhereville",
         "country": "USA",
         "description": "A trendy coffee spot with a rustic ambiance.",
@@ -117,7 +117,7 @@ def populate():
     {
         "name": "Coffee Shop G",
         "address_line_1": "1719 Cedar St",
-        "post_code": "13579",
+        "postcode": "13579",
         "city": "Anytown",
         "country": "USA",
         "description": "A hip coffee joint with live music on weekends.",
@@ -129,7 +129,7 @@ def populate():
     {
         "name": "Coffee Shop H",
         "address_line_1": "2022 Walnut St",
-        "post_code": "97531",
+        "postcode": "97531",
         "city": "Anothercity",
         "country": "USA",
         "description": "An upscale coffee bar serving specialty blends.",
@@ -141,7 +141,7 @@ def populate():
     {
         "name": "Coffee Shop I",
         "address_line_1": "2325 Birch St",
-        "post_code": "24680",
+        "postcode": "24680",
         "city": "Yetanothercity",
         "country": "USA",
         "description": "A cozy spot offering organic coffee and vegan treats.",
@@ -153,7 +153,7 @@ def populate():
     {
         "name": "Coffee Shop J",
         "address_line_1": "2628 Pine St",
-        "post_code": "86420",
+        "postcode": "86420",
         "city": "Somewhereville",
         "country": "USA",
         "description": "A hidden gem serving the best espresso in town.",
@@ -179,7 +179,7 @@ def populate():
     for shop_info in coffee_shop_data:
         address = Addresses.objects.create(
             address_line_1=shop_info["address_line_1"],
-            post_code=shop_info["post_code"],
+            postcode=shop_info["postcode"],
             city=shop_info["city"],
             country=shop_info["country"],
             lat=0.0,  # Provide latitude value here

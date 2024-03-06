@@ -22,7 +22,7 @@ class Addresses(models.Model):
     address_id = models.AutoField(primary_key=True)
     shop_id = models.ManyToManyField(CoffeeShop)
     address_line_1 = models.CharField(max_length=128)
-    post_code = models.CharField(max_length=128)
+    postcode = models.CharField(max_length=128)
     city = models.CharField(max_length=128)
     country = models.CharField(max_length=128)
     lat = models.FloatField()
