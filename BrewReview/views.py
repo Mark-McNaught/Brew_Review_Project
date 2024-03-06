@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
 from BrewReview.forms import UserForm, UserProfileForm
+from BrewReview.models import CoffeeShop
 
 
 def index(request):
@@ -12,7 +13,9 @@ def index(request):
     return render(request, 'BrewReview/index.html', context=context_dict)
 
 def map(request):
-    return render(request, 'BrewReview/map.html')
+    coffee_shop_list = CoffeeShop.objects.all()
+    context_dict = {'shops': coffee_shop_list}
+    return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
     return HttpResponse("shops page goes here")

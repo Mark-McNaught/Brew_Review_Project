@@ -8,7 +8,7 @@
 {% block header_block %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+<!--    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>-->
     <script>
         let map;
         async function initMap() {
@@ -18,13 +18,14 @@
             //     mapId: "DEMO_MAP_ID"
             // }
             const {Map} = await google.maps.importLibrary("maps");
-            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
 
             map = new Map(document.getElementById("map"), {
                 zoom: 11,
                 center: {lat: 55.8724, lng: -4.2900},
                 mapId: "DEMO_MAP_ID"
             });
+
+
         }
     </script>
     <style>
@@ -38,10 +39,30 @@
 {% endblock %}
 
 {% block body_block %}
+    {% if shops %}
+        <ul>
+        {% for coffee_shop in shops %}
+           <li>{{ coffee_shop.name }}<li>
+                <script>
+                    const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
+                    const marker = new AdvancedMarkerElement({
+                        map: map,
+                        position: {{coffee_shop.lat, coffee_shop.lng}},
+                        title: {{coffee_shop.name}}
+                    });
+                </script>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <strong> There are no coffee shops </strong>
+    {% endif %}
     <div id="map">
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ&loading=async&callback=initMap">
-        </script>"
+        </script>
     </div>
 {% endblock %}
+
+
+
 
