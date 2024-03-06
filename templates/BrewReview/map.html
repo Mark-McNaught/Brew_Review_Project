@@ -24,12 +24,11 @@
                 center: {lat: 55.8724, lng: -4.2900},
                 mapId: "DEMO_MAP_ID"
             });
-
-
+            return map;
         }
     </script>
     <style>
-        #map {height: 800px; width:100%;}
+        #map {height: 400px; width:100%;}
     </style>
 
 {% endblock %}
@@ -40,19 +39,19 @@
 
 {% block body_block %}
     {% if shops %}
-        <ul>
         {% for coffee_shop in shops %}
-           <li>{{ coffee_shop.name }}<li>
+            <p hidden id="name">{{ coffee_shop.name }</p>
+            <p hidden id="lat">{{ coffee_shop.lat }}</p>
+            <p hidden id="lng">{{ coffee_shop.lng}}</p>
                 <script>
                     const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
                     const marker = new AdvancedMarkerElement({
                         map: map,
-                        position: {{coffee_shop.lat, coffee_shop.lng}},
-                        title: {{coffee_shop.name}}
+                        position: { lat:document.getElementById("lat"),lng:document.getElementById("lng")},
+                        title: document.getElementById("name")
                     });
                 </script>
         {% endfor %}
-        </ul>
     {% else %}
         <strong> There are no coffee shops </strong>
     {% endif %}
