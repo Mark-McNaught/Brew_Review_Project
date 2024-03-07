@@ -18,7 +18,15 @@ def shops(request):
     return HttpResponse("shops page goes here")
 
 def profile(request):
-    return HttpResponse("user profile page goes here, with link to user settings page")
+    context_dict = {}
+    return render(request, 'BrewReview/profile.html', context=context_dict)
+
+
+def account_settings(request):
+    context_dict = {}
+    return render(request, 'BrewReview/account_settings.html', context=context_dict)
+
+
 
 def signup(request):
     registered = False
