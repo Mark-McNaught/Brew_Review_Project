@@ -19,23 +19,25 @@
 
     
     {% block header_block %}
+    {% endblock %}
 </head>
-{% endblock %}
+    
 <body>
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'BrewReview:index' %}">BrewReview</a>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'BrewReview:login' %}">Login </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'BrewReview:signup' %}">Signup</a>
+                    </li>
+                </ul>
+        </nav>
+    </header>
 
-    <div class="titlebar">
-        <h1>{% block heading_block %}{% endblock%}
-        <a href="/BrewReview/login/">Log in</a>
-        <a href="/BrewReview/signup/">Sign Up</a>
-        </h1>
-    </div><br>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">BrewReview</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">      
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="{% if navbar_active == 'home' %}nav-item active{% else %}nav-item{% endif %}">
