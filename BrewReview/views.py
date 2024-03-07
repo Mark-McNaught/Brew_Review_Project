@@ -8,22 +8,23 @@ from BrewReview.forms import UserForm, UserProfileForm
 
 
 def index(request):
-    context_dict = {'boldmessage': 'Testing view and index template'}
+    context_dict = {'boldmessage': 'Testing view and index template', 'navbar_active':'home'}
     return render(request, 'BrewReview/index.html', context=context_dict)
 
 def map(request):
-    return render(request, 'BrewReview/map.html')
+    context_dict = {'navbar_active':'map'}
+    return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
     return HttpResponse("shops page goes here")
 
 def profile(request):
-    context_dict = {}
+    context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
 
 
 def account_settings(request):
-    context_dict = {}
+    context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/account_settings.html', context=context_dict)
 
 

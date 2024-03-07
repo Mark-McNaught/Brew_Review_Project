@@ -38,16 +38,16 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'BrewReview:index' %}">Home <span class="sr-only">(current)</span></a>
+            <li class="{% if navbar_active == 'home' %}nav-item active{% else %}nav-item{% endif %}">
+              <a class="nav-link" href="{% url 'BrewReview:index' %}">Home </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'BrewReview:shops' %}">Shops</a>
             </li>
-            <li class="nav-item">
+            <li class="{% if navbar_active == 'map' %}nav-item active{% else %}nav-item{% endif %}">
                 <a class="nav-link" href="{% url 'BrewReview:map' %}">Map</a>
               </li>
-            <li class="nav-item">
+            <li class="{% if navbar_active == 'profile' %}nav-item active{% else %}nav-item{% endif %}">
                 <a class="nav-link" href="{% url 'BrewReview:profile' %}">Profile</a>
             </li>
         </div>
