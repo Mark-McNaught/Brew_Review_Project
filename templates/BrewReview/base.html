@@ -17,8 +17,12 @@
 
     <div class="titlebar">
         <h1>{% block heading_block %}{% endblock%}
-        <a href="/BrewReview/login/">Log in</a>
-        <a href="/BrewReview/signup/">Sign Up</a>
+        {% if user.is_authenticated %}
+            <a href="/BrewReview/logout/">Log Out</a>
+        {% else %}
+            <a href="/BrewReview/login/">Log In</a>
+            <a href="/BrewReview/signup/">Sign Up</a>
+        {% endif %}
         </h1>
 
         

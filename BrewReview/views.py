@@ -17,8 +17,9 @@ def map(request):
 def shops(request):
     return HttpResponse("shops page goes here")
 
+@login_required
 def profile(request):
-    return HttpResponse("user profile page goes here, with link to user settings page")
+    return render(request, 'BrewReview/profile.html')
 
 def signup(request):
     registered = False
@@ -69,5 +70,9 @@ def user_login(request):
     else:
         return render(request, 'BrewReview/login.html')
 
-def settings(request):
-    return HttpResponse("user settings page goes here")
+def user_settings(request):
+    return render(request, 'BrewReview/user_settings.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('BrewReview:index'))

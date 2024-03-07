@@ -1,0 +1,17 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+
+    {% block title_block %}
+    Profile
+    {% endblock %}
+
+    {% block heading_block %}
+    Filler Page 
+    {% endblock %}
+
+
+    {% block body_block %}
+    user settings page goes here <br/>
+    <a href="{% url 'BrewReview:logout' %}">logout</a>
+    {% endblock %}
