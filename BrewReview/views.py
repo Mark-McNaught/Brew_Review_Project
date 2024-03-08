@@ -24,12 +24,17 @@ def map(request):
     lng_list = str(result.get("lng"))
    # addresses=""
     for coffee_shop in coffee_shop_list[1:]:
-        names += ", "+coffee_shop.name
-        result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
-        coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
-                  .get("geometry", None).get("location", None))
-        lat_list += ","+str(result.get("lat"))
-        lng_list += ","+str(result.get("lng"))
+        names += ", " + coffee_shop.name
+        if coffee_shop.address.lat is None and coffee_shop.address.lat is None:
+            result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
+            coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
+                      .get("geometry", None).get("location", None))
+            lat_list += ","+str(result.get("lat"))
+            lng_list += ","+str(result.get("lng"))
+        else:
+            lat_list += ","+str(coffee_shop.address.lat)
+            lng_list += ","+str(coffee_shop.address.lng)
+
        # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
 
 

@@ -33,7 +33,7 @@
         const length = document.getElementById("length").innerHTML;
         const lat_array = document.getElementById("lat_list").innerHTML.split(",");
         const lng_array = document.getElementById("lng_list").innerHTML.split(",");
-
+        console.log(lat_array);
         async function initMap() {
             const {Map} = await google.maps.importLibrary("maps");
             map = new Map(document.getElementById("map"), {
