@@ -1,0 +1,16 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    {% if search %}
+        <h1> You Searched For {{ search }}</h1>
+        <br/>
+        {% for CoffeeShop in shops %}
+            {{ CoffeeShop }} - {{ CoffeeShop.address }}<br/>
+        {% endfor %}
+    
+    {% else %}
+        <h1> No Search </h1>
+    {% endif %}
+    
+{% endblock %}

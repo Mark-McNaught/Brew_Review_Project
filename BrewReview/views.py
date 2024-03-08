@@ -37,7 +37,17 @@ def map(request):
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
-    return HttpResponse("shops page goes here")
+    context_dict = {'navbar_active':'shops'}
+    return render(request, 'BrewReview/shops.html', context=context_dict)
+
+def searched(request):
+    context_dict = {'navbar':'shops'}
+    if request.method == 'POST':
+        search = request.POST.get('search', '')
+        shops = CoffeeShop.objects.filter(name__contains=search)
+        return render(request, 'BrewReview/searched.html', {'search':search, 'shops':shops, 'context':context_dict})
+    else:
+        return render(request, 'BrewReview/searched.html', context=context_dict)
 
 @login_required
 def profile(request):
