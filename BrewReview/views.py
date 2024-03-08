@@ -26,6 +26,7 @@ def map(request):
     for coffee_shop in coffee_shop_list[1:]:
         names += ", " + coffee_shop.name
         if coffee_shop.address.lat is None and coffee_shop.address.lat is None:
+
             result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
             coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
                       .get("geometry", None).get("location", None))

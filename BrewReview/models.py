@@ -25,8 +25,8 @@ class Addresses(models.Model):
     postcode = models.CharField(max_length=128)
     city = models.CharField(max_length=128)
     country = models.CharField(max_length=128)
-    lat = models.FloatField()
-    lng = models.FloatField()
+    lat = models.FloatField(default=None, null=True)
+    lng = models.FloatField(default=None, null=True)
 
     class Meta:
         verbose_name_plural = 'Addresses'
