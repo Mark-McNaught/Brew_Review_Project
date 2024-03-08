@@ -1,19 +1,20 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
+
     {% block title_block %}
-    Index
+    Profile
     {% endblock %}
 
     {% block heading_block %}
-    Home
+    Profile Page
     {% endblock %}
 
 
     {% block body_block %}
 
     <div>
+        <a href="{% url 'BrewReview:account_settings' %}">User Settings</a>
     </div>
-    <div>
-    </div>
+
     {% endblock %}
