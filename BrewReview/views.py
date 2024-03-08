@@ -44,6 +44,7 @@ def map(request):
 def shops(request):
     return HttpResponse("shops page goes here")
 
+@login_required
 def profile(request):
     context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
@@ -104,5 +105,9 @@ def user_login(request):
     else:
         return render(request, 'BrewReview/login.html')
 
-def settings(request):
-    return HttpResponse("user settings page goes here")
+def user_settings(request):
+    return render(request, 'BrewReview/user_settings.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('BrewReview:index'))
