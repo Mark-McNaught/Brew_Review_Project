@@ -161,6 +161,18 @@ def populate():
         "serves_food": False,
         "rating": 5,
         "price": 5
+    },
+    {
+        "name": "Coffee Shop K",
+        "address_line_1": "Byres Road",
+        "postcode": "G12 ",
+        "city": "Glasgow",
+        "country": "Scotland",
+        "description": "A hidden gem serving the best espresso in town.",
+        "image_location_folder": "https://example.com/image11.jpg",
+        "serves_food": False,
+        "rating": 5,
+        "price": 5
     }
 ]
 
@@ -184,8 +196,8 @@ def populate():
             postcode=shop_info["postcode"],
             city=shop_info["city"],
             country=shop_info["country"],
-            lat=starting_lat,  # Provide latitude value here
-            lng=starting_lng   # Provide longitude value here
+            lat=0.0,  # Provide latitude value here
+            lng=0.0   # Provide longitude value here
         )
         # starting_lng += 1
         # starting_lat += 1

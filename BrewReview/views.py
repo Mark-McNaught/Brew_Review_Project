@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from BrewReview.forms import UserForm, UserProfileForm
 from BrewReview.models import CoffeeShop
+import googlemaps
 
 
 def index(request):
@@ -13,8 +14,26 @@ def index(request):
     return render(request, 'BrewReview/index.html', context=context_dict)
 
 def map(request):
+    gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
     coffee_shop_list = CoffeeShop.objects.all()
-    context_dict = {'shops': coffee_shop_list}
+    length = len(coffee_shop_list)
+    names = coffee_shop_list[0].name
+    result =gmaps.geocode(coffee_shop_list[0].address.address_line_1 + ", " + coffee_shop_list[0].address.postcode + ", " +
+                  coffee_shop_list[0].address.city + ", " + coffee_shop_list[0].address.country)[0].get("geometry",None).get("location",None)
+    lat_list = str(result.get("lat"))
+    lng_list = str(result.get("lng"))
+   # addresses=""
+    for coffee_shop in coffee_shop_list[1:]:
+        names += ", "+coffee_shop.name
+        result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
+        coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
+                  .get("geometry", None).get("location", None))
+        lat_list += ","+str(result.get("lat"))
+        lng_list += ","+str(result.get("lng"))
+       # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
+
+
+    context_dict = {'shops': coffee_shop_list, 'length': length, 'names': names, 'lat_list': lat_list, 'lng_list': lng_list }
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
