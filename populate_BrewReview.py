@@ -197,7 +197,7 @@ def populate():
             city=shop_info["city"],
             country=shop_info["country"],
             lat=0.0,  # Provide latitude value here
-            lng=0.0   # Provide longitude value here
+            lng=0.0  # Provide longitude value here
         )
         # starting_lng += 1
         # starting_lat += 1
