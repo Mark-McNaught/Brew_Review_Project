@@ -16,7 +16,7 @@ class FavouriteShopsAdmin(admin.ModelAdmin):
     list_display = ('fav_id', 'shop_id', 'user')
 
 class AddressesAdmin(admin.ModelAdmin):
-    list_display = ('address_id', 'shop_id','postcode', 'city', 'lat', 'long')
+    list_display = ('address_id', 'shop_id','postcode', 'city', 'lat', 'lng')
 
 
 admin.site.register(CoffeeShop, CoffeeShopAdmin)
