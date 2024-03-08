@@ -7,11 +7,14 @@
     {% endblock %}
 
     {% block heading_block %}
-    Filler Page 
+    Profile Page
     {% endblock %}
 
 
     {% block body_block %}
-    user profile page goes here, with link to 
-    <a href="{% url 'BrewReview:user_settings' %}">user settings</a><br />
+
+    <div>
+        <a href="{% url 'BrewReview:account_settings' %}">User Settings</a>
+    </div>
+
     {% endblock %}

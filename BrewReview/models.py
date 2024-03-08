@@ -26,7 +26,7 @@ class Addresses(models.Model):
     city = models.CharField(max_length=128)
     country = models.CharField(max_length=128)
     lat = models.FloatField()
-    long = models.FloatField()
+    lng = models.FloatField()
 
     class Meta:
         verbose_name_plural = 'Addresses'

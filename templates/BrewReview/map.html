@@ -7,30 +7,9 @@
 
 {% block header_block %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-    <script>
-        let map;
-        async function initMap() {
-            // var options = {
-            //     zoom:8,
-            //     center:{lat:55.8724, lng:- 4.2900},
-            //     mapId: "DEMO_MAP_ID"
-            // }
-            const {Map} = await google.maps.importLibrary("maps");
-            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
-
-            map = new Map(document.getElementById("map"), {
-                zoom: 11,
-                center: {lat: 55.8724, lng: -4.2900},
-                mapId: "DEMO_MAP_ID"
-            });
-        }
-    </script>
     <style>
-        #map {height: 800px; width:100%;}
+        #map {height: 400px; width:100%;}
     </style>
-
 {% endblock %}
 
 {% block heading_block %}
@@ -38,10 +17,71 @@
 {% endblock %}
 
 {% block body_block %}
+    {% if shops %}
+            <p hidden id="names">{{ names }}</p>
+            <p hidden id="length"> {{ length }}</p>
+            <p hidden id = "lat_list"> {{ lat_list }}</p>
+            <p hidden id = "lng_list"> {{ lng_list }}</p>
+    {% else %}
+        <strong> There are no coffee shops </strong>
+    {% endif %}
+    <script>
+        let markersList = [];
+        let marker;
+        let map;
+        const name_array = document.getElementById("names").innerHTML.split(",");
+        const length = document.getElementById("length").innerHTML;
+        const lat_array = document.getElementById("lat_list").innerHTML.split(",");
+        const lng_array = document.getElementById("lng_list").innerHTML.split(",");
+
+        async function initMap() {
+            const {Map} = await google.maps.importLibrary("maps");
+            map = new Map(document.getElementById("map"), {
+                zoom: 11,
+                center: {lat: 55.8724, lng: -4.2900},
+                mapId: "DEMO_MAP_ID"
+            });
+
+            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
+            //let x;
+            let markersList =[]
+            for(let i=0;i<length;i++) {
+                var x = new AdvancedMarkerElement({
+                    map: map,
+                    position: {
+                        lat: +lat_array[i],
+                        lng: +lng_array[i]
+                    },
+                    title: name_array[i]
+                });
+                markersList.push(x);
+            }
+
+            // for(let i=0;i<markersList.length;i++){
+            // }
+            //add click event redirect to shop page
+
+
+
+            // const pinBackground = new PinElement({
+            //       background: "#FBBC04",
+            //     });
+            //  content:pinBackground.element,
+            const marker1 = new AdvancedMarkerElement({
+                map: map,
+                position: {lat:55.8724,
+                lng: -4.2900},
+                title: "uni",
+            })
+        }
+    </script>
     <div id="map">
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ&loading=async&callback=initMap">
-        </script>"
+        </script>
     </div>
 {% endblock %}
+
+
+
 
