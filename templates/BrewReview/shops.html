@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
+    <header>
     <h1> Find Shops </h1>
         <form class = 'd-flex' method=POST action="{% url 'BrewReview:searched' %}">
 
@@ -10,5 +11,36 @@
             <input class='form-control me-2' type="search" placeholder="Search Shops" aria-label="Search" name="search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+    </header>
+    Filter By :
+    <div></div>
+    Sort By :
 
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for shop in shops %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                    <!--when shops have images {{ shop.image_location_folder.url }}-->
+                        <img class="card-imp-top" src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
+                            alt="..." />
+                        <div class="card-body p4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">{{shop.name}}</h5>
+                                {{shop.rating}}
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto" href="#">View Shop</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
