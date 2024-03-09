@@ -43,8 +43,9 @@ def map(request):
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
+    shops = CoffeeShop.objects.all()
     context_dict = {'navbar_active':'shops'}
-    return render(request, 'BrewReview/shops.html', context=context_dict)
+    return render(request, 'BrewReview/shops.html', {'shops':shops, 'context':context_dict})
 
 def searched(request):
     context_dict = {'navbar':'shops'}
