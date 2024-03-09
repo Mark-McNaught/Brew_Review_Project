@@ -30,8 +30,13 @@ def map(request):
             result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
             coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
                       .get("geometry", None).get("location", None))
-            lat_list += ","+str(result.get("lat"))
-            lng_list += ","+str(result.get("lng"))
+            lat = result.get("lat")
+            lng = result.get("lng")
+            # save lat and lng
+            # coffee_shop.address.lat = lat
+            # coffee_shop.address.lng = lng
+            lat_list += ","+str(lat)
+            lng_list += ","+str(lng)
         else:
             lat_list += ","+str(coffee_shop.address.lat)
             lng_list += ","+str(coffee_shop.address.lng)
