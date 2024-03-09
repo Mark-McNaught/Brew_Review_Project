@@ -78,10 +78,9 @@ class FavouriteShops(models.Model):
 
 
 class UserProfile(models.Model):
-    # Not sure what this is for?
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    #picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+    
     #owner = models.BooleanField()
 
     def __str__(self):

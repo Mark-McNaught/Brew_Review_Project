@@ -6,19 +6,20 @@
 {% endblock %}
 
 {% block heading_block %}
-Login
+    Login
 {% endblock %}
-{% block body_block %}
 
-<h1>Login to Brew Review</h1>
-<form id="login_form" method="post" action="{% url 'BrewReview:login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-    <br />
-    Don't have an account ? <a href="{% url 'BrewReview:signup' %}">Sign up</a>
-</form>
+
+{% block body_block %}
+    <h1>Login to Brew Review</h1>
+    <form id="login_form" method="post" action="{% url 'BrewReview:login' %}">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br />
+        Password: <input type="password" name="password" value="" size="50" />
+        <br />
+        <input type="submit" value="submit" />
+        <br />
+        Don't have an account ? <a href="{% url 'BrewReview:signup' %}">Sign up</a>
+    </form>
 {% endblock %}

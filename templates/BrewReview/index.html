@@ -1,19 +1,20 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
-    {% block title_block %}
+{% block title_block %}
     Index
-    {% endblock %}
+{% endblock %}
 
-    {% block heading_block %}
+{% block heading_block %}
     Home
-    {% endblock %}
+{% endblock %}
 
 
-    {% block body_block %}
+{% block body_block %}
+    <strong>Welcome, 
+    {% if user.is_authenticated %}
+        {{ user.username }}!
+    {% endif %}
+    </strong>
 
-    <div>
-    </div>
-    <div>
-    </div>
-    {% endblock %}
+{% endblock %}

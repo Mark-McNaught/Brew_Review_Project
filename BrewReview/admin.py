@@ -8,7 +8,6 @@ class CoffeeShopAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('coffee_shop', 'user', 'rating', 'review')
 
-
 class SavedReviewsAdmin(admin.ModelAdmin):
     list_display = ('save_id', 'review_id', 'user')
 

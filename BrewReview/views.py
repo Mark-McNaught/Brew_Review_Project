@@ -1,11 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
 from BrewReview.forms import UserForm, UserProfileForm
 from BrewReview.models import CoffeeShop
+
 import googlemaps
 
 
@@ -61,15 +63,17 @@ def searched(request):
     else:
         return render(request, 'BrewReview/searched.html', context=context_dict)
 
+
+@login_required
+def account_settings(request):
+    context_dict = {'navbar_active':'settings'}
+    return render(request, 'BrewReview/account_settings.html', context=context_dict)
+
+
 @login_required
 def profile(request):
     context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
-
-
-def account_settings(request):
-    context_dict = {'navbar_active':'profile'}
-    return render(request, 'BrewReview/account_settings.html', context=context_dict)
 
 
 
@@ -122,8 +126,7 @@ def user_login(request):
     else:
         return render(request, 'BrewReview/login.html')
 
-def user_settings(request):
-    return render(request, 'BrewReview/user_settings.html')
+
 
 def user_logout(request):
     logout(request)

@@ -27,12 +27,18 @@
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'BrewReview:index' %}">BrewReview</a>
                 <ul class="nav justify-content-end">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'BrewReview:logout' %}">Logout </a>
+                        </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'BrewReview:login' %}">Login </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'BrewReview:signup' %}">Signup</a>
                     </li>
+                    {% endif %}
                 </ul>
         </nav>
     </header>
@@ -49,11 +55,12 @@
             <li class="{% if navbar_active == 'map' %}nav-item active{% else %}nav-item{% endif %}">
                 <a class="nav-link" href="{% url 'BrewReview:map' %}">Map</a>
               </li>
-            <li class="{% if navbar_active == 'profile' %}nav-item active{% else %}nav-item{% endif %}">
-                <a class="nav-link" href="{% url 'BrewReview:profile' %}">Profile</a>
+            <li class="{% if navbar_active == 'profile' %}nav-item active{% elif navbar_active == 'settings' %}nav-item active{% else %}nav-item{% endif %}">
+                <a class="nav-link" href="{% url 'BrewReview:profile' %}">{% if navbar_active == 'settings' %}Profile/Settings{% else %}Profile{% endif %}</a>
             </li>
         </div>
       </nav>
+      <br>
 
 
     {% block body_block %}

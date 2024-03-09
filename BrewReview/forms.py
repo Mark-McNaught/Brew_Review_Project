@@ -22,8 +22,10 @@ class UserForm(forms.ModelForm):
                 "Passwords must match"
             )
 
+
 class UserProfileForm(forms.ModelForm):
     owner = forms.BooleanField()
+    
     class Meta:
         model = UserProfile
         fields = ()
