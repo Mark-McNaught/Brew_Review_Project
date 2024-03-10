@@ -23,5 +23,6 @@
         {% else %}
             No such shop exists.
         {% endif %}
+        <a href="{% url 'BrewReview:add_review' shop.slug %}">Add review</a><br />
     </div>
 {% endblock %}

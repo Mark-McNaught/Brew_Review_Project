@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm
-from BrewReview.models import CoffeeShop, Review, Addresses
+from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm, ReviewForm
+from BrewReview.models import CoffeeShop, Review, Addresses, UserProfile
 
 import googlemaps
 
@@ -76,7 +76,30 @@ def add_shop(request):
             print(form.errors)
     return render(request, 'BrewReview/add_shop.html', {'form': form})
 
+@login_required
+def add_review(request, shop_slug):
+    try:
+        shop = CoffeeShop.objects.get(slug=shop_slug)
+    except CoffeeShop.DoesNotExist:
+        shop = None
 
+    if shop is None:
+        return redirect('/BrewReview/')
+    
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.coffee_shop = shop
+            review.user = request.user
+            review.save()
+
+            return redirect(reverse('BrewReview:show_shop', kwargs={'shop_slug': shop_slug}))
+        else:
+            print(form.errors)
+    return render(request, 'BrewReview/add_review.html', {'form': form, 'shop': shop})
 
 def searched(request):
     context_dict = {'navbar':'shops'}

@@ -1,0 +1,24 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Add Review
+{% endblock %}
+
+{% block body_block %}
+    <h1>Post review</h1>
+    <div>
+        <form id="add_review_form" method="post" action="{% url 'BrewReview:add_review' shop.slug %}">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Post Review" />
+        </form>
+    </div>
+{% endblock %}
