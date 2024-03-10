@@ -3,6 +3,7 @@ from django.contrib import admin
 from BrewReview.models import CoffeeShop, Review, SavedReviews, FavouriteShops, Addresses, UserProfile
 
 class CoffeeShopAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}
     list_display = ('name', 'address', 'rating', 'price')
 
 class ReviewAdmin(admin.ModelAdmin):

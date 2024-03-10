@@ -1,0 +1,27 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {{ shop.name }}
+{% endblock %}
+
+{% block heading_block %}
+    {{ shop.name }}
+{% endblock %}
+
+{% block body_block %}
+    <div>
+        {% if shop %}
+            <h1> Reviews for {{shop.name}}:</h1>
+            {% if reviews %}
+                {% for r in reviews %}
+                    <p>{{r.review}}</p>
+                {% endfor %}
+            {% else %}
+                <strong>There are no reviews for this shop yet</strong>
+            {% endif %}
+        {% else %}
+            No such shop exists.
+        {% endif %}
+    </div>
+{% endblock %}

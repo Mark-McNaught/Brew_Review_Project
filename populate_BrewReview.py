@@ -103,79 +103,70 @@ def populate():
     # Sample data for CoffeeShops
     coffee_shop_data = [
     {
-        "name": "Coffee Shop F",
-        "address_line_1": "1315 Oak St",
-        "postcode": "54321",
-        "city": "Somewhereville",
-        "country": "USA",
+        "name": "Andina Colombian Cafe",
+        "address_line_1": "1274 Argyle St",
+        "postcode": "G3 8AA",
+        "city": "Glasgow",
+        "country": "UK",
         "description": "A trendy coffee spot with a rustic ambiance.",
-        "image_location_folder": "https://example.com/image6.jpg",
         "serves_food": True,
-        "rating": 4,
-        "price": 3
-    },
-    {
-        "name": "Coffee Shop G",
-        "address_line_1": "1719 Cedar St",
-        "postcode": "13579",
-        "city": "Anytown",
-        "country": "USA",
-        "description": "A hip coffee joint with live music on weekends.",
-        "image_location_folder": "https://example.com/image7.jpg",
-        "serves_food": False,
-        "rating": 5,
+        "rating": 3,
         "price": 4
     },
     {
-        "name": "Coffee Shop H",
-        "address_line_1": "2022 Walnut St",
-        "postcode": "97531",
-        "city": "Anothercity",
-        "country": "USA",
-        "description": "An upscale coffee bar serving specialty blends.",
-        "image_location_folder": "https://example.com/image8.jpg",
+        "name": "West End Coffee House & Bakery",
+        "address_line_1": "683 Great Western Rd",
+        "postcode": "G12 8RA",
+        "city": "Glasgow",
+        "country": "UK",
+        "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 4,
         "price": 3
     },
     {
-        "name": "Coffee Shop I",
-        "address_line_1": "2325 Birch St",
-        "postcode": "24680",
-        "city": "Yetanothercity",
-        "country": "USA",
-        "description": "A cozy spot offering organic coffee and vegan treats.",
-        "image_location_folder": "https://example.com/image9.jpg",
+        "name": "Tinderbox",
+        "address_line_1": "189 Byres Rd",
+        "postcode": "G12 8TS",
+        "city": "Glasgow",
+        "country": "UK",
+        "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
-        "rating": 4,
+        "rating": 5,
+        "price": 5
+    },
+    {
+        "name": "Grain and Grind",
+        "address_line_1": "45 Old Dumbarton Rd",
+        "postcode": "G3 8RF",
+        "city": "Glasgow",
+        "country": "UK",
+        "description": "A trendy coffee spot with a rustic ambiance.",
+        "serves_food": True,
+        "rating": 2,
+        "price": 4
+    },
+    {
+        "name": "University Cafe",
+        "address_line_1": "87 Byres Rd",
+        "postcode": "G11 5HN",
+        "city": "Glasgow",
+        "country": "UK",
+        "description": "A trendy coffee spot with a rustic ambiance.",
+        "serves_food": True,
+        "rating": 2,
         "price": 2
     },
-    {
-        "name": "Coffee Shop J",
-        "address_line_1": "2628 Pine St",
-        "postcode": "86420",
-        "city": "Somewhereville",
-        "country": "USA",
-        "description": "A hidden gem serving the best espresso in town.",
-        "image_location_folder": "https://example.com/image10.jpg",
-        "serves_food": False,
-        "rating": 5,
-        "price": 5
-    },
-    {
-        "name": "Coffee Shop K",
-        "address_line_1": "Byres Road",
-        "postcode": "G12 ",
-        "city": "Glasgow",
-        "country": "Scotland",
-        "description": "A hidden gem serving the best espresso in town.",
-        "image_location_folder": "https://example.com/image11.jpg",
-        "serves_food": False,
-        "rating": 5,
-        "price": 5
-    }
+    
 ]
 
+    titles = [
+        "Great",
+        "Poor",
+        "Ok",
+        "Nice",
+        "Decent"
+    ]
 
     # Sample data for Reviews
     review_data = [
@@ -201,7 +192,6 @@ def populate():
             name=shop_info["name"],
             address=address,
             description=shop_info["description"],
-            image_location_folder=shop_info["image_location_folder"],
             serves_food=shop_info["serves_food"],
             rating=shop_info["rating"],
             price=shop_info["price"]
@@ -219,6 +209,7 @@ def populate():
                 coffee_shop=coffee_shop,
                 user=user,
                 date=datetime.now() - timedelta(days=random.randint(1, 365)),
+                title=random.choice(titles),
                 rating=random.randint(1, 5),
                 review=random.choice(review_data)
             )

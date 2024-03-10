@@ -28,11 +28,11 @@
                             alt="..." />
                         <div class="card-body p4">
                             <div class="text-center">
-                                <h5 class="fw-bolder">{{shop.name}}</h5>
+                                <h5 class="fw-bolder">{{ shop.name }}</h5>
                                 {{shop.rating}}
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto" href="#">View Shop</a>
+                                        <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:show_shop' shop.slug %}">View Shop</a>
                                     </div>
                                 </div>
                             </div>
@@ -44,3 +44,4 @@
         </div>
     </section>
 {% endblock %}
+

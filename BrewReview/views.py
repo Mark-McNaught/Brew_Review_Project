@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from BrewReview.forms import UserForm, UserProfileForm
-from BrewReview.models import CoffeeShop
+from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm
+from BrewReview.models import CoffeeShop, Review
 
 import googlemaps
 
@@ -44,15 +44,39 @@ def map(request):
             lng_list += ","+str(coffee_shop.address.lng)
 
        # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
-
-
     context_dict = {'shops': coffee_shop_list, 'length': length, 'names': names, 'lat_list': lat_list, 'lng_list': lng_list }
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
     shops = CoffeeShop.objects.all()
-    context_dict = {'navbar_active':'shops'}
-    return render(request, 'BrewReview/shops.html', {'shops':shops, 'context':context_dict})
+    context_dict = {'navbar_active':'shops', 'shops':shops}
+    return render(request, 'BrewReview/shops.html', context=context_dict)
+
+def show_shop(request, shop_slug):
+    context = {}
+    try:
+        shop = CoffeeShop.objects.get(slug=shop_slug)
+        reviews = Review.objects.filter(coffee_shop=shop)
+        context['reviews'] = reviews
+        context['shop'] = shop
+    except CoffeeShop.DoesNotExist:
+        context['shop'] = None
+        context['reviews'] = None
+    return render(request, 'BrewReview/shop.html', context=context)
+
+def add_shop(request):
+    form = CoffeeShopForm()
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = CoffeeShopForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('/BrewReview/')
+        else:
+            print(form.errors)
+    return render(request, 'BrewReview/add_shop.html', {'form': form})
+
+
 
 def searched(request):
     context_dict = {'navbar':'shops'}

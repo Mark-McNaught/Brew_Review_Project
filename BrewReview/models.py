@@ -1,18 +1,36 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 
 class CoffeeShop(models.Model):
     # Table for storing details about a coffee shop
+    NAME_MAX_LENGTH = 128
+    DESC_MAX_LENGTH = 1000
+    
     shop_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=128)
-    address = models.OneToOneField('Addresses', on_delete=models.CASCADE)
-    description = models.TextField(max_length=1000)
-    image_location_folder = models.URLField(max_length=256, unique=True)
+    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
+    slug = models.SlugField(unique=True)
+
+    # Need to implement address still
+    address = models.OneToOneField('Addresses', on_delete=models.CASCADE, null=True)
+
+    description = models.TextField(max_length=DESC_MAX_LENGTH)
+
+    # Need to implement image folder still
+    image_location_folder = models.URLField(max_length=256, unique=True, null=True)
+
     serves_food = models.BooleanField(default=False)
-    rating = models.IntegerField(default=0)
+
+    # Need to implement average rating still
+    rating = models.IntegerField(default=0, null=True)
+
     price = models.IntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(CoffeeShop, self).save(*args, **kwargs)
+    
     def __str__(self):
         return self.name
 
@@ -37,12 +55,17 @@ class Addresses(models.Model):
 
 class Review(models.Model):
     # Table for storing details about a coffee shop review
+    TITLE_MAX_LENGTH = 256
+    REVIEW_MAX_LENGTH = 1000
+
     review_id = models.AutoField(primary_key=True)
     coffee_shop = models.ForeignKey(CoffeeShop, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
+
+    title = models.CharField(max_length=TITLE_MAX_LENGTH)
     rating = models.IntegerField(default=0)
-    review = models.TextField(max_length=1000)
+    review = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
     def __str__(self):
         return str(self.review_id)

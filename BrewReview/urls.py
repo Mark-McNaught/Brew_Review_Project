@@ -8,7 +8,10 @@ app_name = 'BrewReview'
 urlpatterns = [
     path('', views.index, name='index'),
     path('map/', views.map, name='map'),
+
     path('shops/', views.shops, name='shops'),
+    path('shops/<slug:shop_slug>/', views.show_shop, name='show_shop'),
+    path('add_shop/', views.add_shop, name='add_shop'),
     path('searched/', views.searched, name='searched'),
 
     path('profile/', views.profile, name='profile'),
