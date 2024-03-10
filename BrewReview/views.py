@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm
-from BrewReview.models import CoffeeShop, Review
+from BrewReview.models import CoffeeShop, Review, Addresses
 
 import googlemaps
 
@@ -34,9 +34,9 @@ def map(request):
                       .get("geometry", None).get("location", None))
             lat = result.get("lat")
             lng = result.get("lng")
-            # save lat and lng
-            # coffee_shop.address.lat = lat
-            # coffee_shop.address.lng = lng
+            coffee_shop.address.lat = lat
+            coffee_shop.address.lng = lng
+            coffee_shop.address.save()
             lat_list += ","+str(lat)
             lng_list += ","+str(lng)
         else:
