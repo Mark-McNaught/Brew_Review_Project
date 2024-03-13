@@ -6,7 +6,7 @@ django.setup()
 
 import random
 from django.contrib.auth.models import User
-from BrewReview.models import CoffeeShop, Review, Addresses
+from BrewReview.models import CoffeeShop, Review
 from datetime import datetime, timedelta
 
 
@@ -108,6 +108,8 @@ def populate():
         "postcode": "G3 8AA",
         "city": "Glasgow",
         "country": "UK",
+        "lat":0.0,
+        "lng":0.0,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 3,
@@ -119,6 +121,8 @@ def populate():
         "postcode": "G12 8RA",
         "city": "Glasgow",
         "country": "UK",
+        "lat": 55.8770116,
+        "lng": -4.287652899999999,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 4,
@@ -130,6 +134,8 @@ def populate():
         "postcode": "G12 8TS",
         "city": "Glasgow",
         "country": "UK",
+        "lat": 55.8739949,
+        "lng": -4.2953535,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 5,
@@ -141,6 +147,8 @@ def populate():
         "postcode": "G3 8RF",
         "city": "Glasgow",
         "country": "UK",
+        "lat": 55.867053,
+        "lng": -4.292545,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 2,
@@ -152,6 +160,8 @@ def populate():
         "postcode": "G11 5HN",
         "city": "Glasgow",
         "country": "UK",
+        "lat": 55.872035,
+        "lng": -4.297690999999999,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 2,
@@ -179,18 +189,19 @@ def populate():
 
     # Create CoffeeShops
     coffee_shops = []
-    for shop_info in coffee_shop_data:
-        address = Addresses.objects.create(
-            address_line_1=shop_info["address_line_1"],
-            postcode=shop_info["postcode"],
-            city=shop_info["city"],
-            country=shop_info["country"],
-
-        )
+    # for shop_info in coffee_shop_data:
+    #     address = Addresses.objects.create(
+    #         address_line_1=shop_info["address_line_1"],
+    #         postcode=shop_info["postcode"],
+    #         city=shop_info["city"],
+    #         country=shop_info["country"],
+    #
+    #     )
 
         coffee_shop = CoffeeShop.objects.create(
             name=shop_info["name"],
-            address=address,
+            address=["address_line_1"]+["postcode"]+["city"]+["country"],
+
             description=shop_info["description"],
             serves_food=shop_info["serves_food"],
             rating=shop_info["rating"],

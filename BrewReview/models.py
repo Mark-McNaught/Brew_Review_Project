@@ -7,15 +7,15 @@ class CoffeeShop(models.Model):
     # Table for storing details about a coffee shop
     NAME_MAX_LENGTH = 128
     DESC_MAX_LENGTH = 1000
-    
+    ADDRESS_MAX_LENGTH = 256
+
     shop_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)
-
-    # Need to implement address still
-    address = models.OneToOneField('Addresses', on_delete=models.CASCADE, null=True)
-
     description = models.TextField(max_length=DESC_MAX_LENGTH)
+    address = models.TextField(max_length=ADDRESS_MAX_LENGTH)
+    lat = models.FloatField(default=None, null=True)
+    lng = models.FloatField(default=None, null=True)
 
     # Need to implement image folder still
     image_location_folder = models.URLField(max_length=256, unique=True, null=True)
@@ -30,28 +30,25 @@ class CoffeeShop(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(CoffeeShop, self).save(*args, **kwargs)
-    
-    def __str__(self):
-        return self.name
 
-
-class Addresses(models.Model):
-    # Table that stores a reference to a coffee shop and its address details for the mapping features
-    address_id = models.AutoField(primary_key=True)
-    shop_id = models.ManyToManyField(CoffeeShop)
-    address_line_1 = models.CharField(max_length=128)
-    postcode = models.CharField(max_length=128)
-    city = models.CharField(max_length=128)
-    country = models.CharField(max_length=128)
-    lat = models.FloatField(default=None, null=True)
-    lng = models.FloatField(default=None, null=True)
-
-    class Meta:
-        verbose_name_plural = 'Addresses'
-
-    def __str__(self):
-        return str(self.address_id)
-        
+#
+# class Addresses(models.Model):
+#     # Table that stores a reference to a coffee shop and its address details for the mapping features
+#     address_id = models.AutoField(primary_key=True)
+#     shop_id = models.ManyToManyField(CoffeeShop)
+#     address_line_1 = models.CharField(max_length=128)
+#     postcode = models.CharField(max_length=128)
+#     city = models.CharField(max_length=128)
+#     country = models.CharField(max_length=128)
+#     lat = models.FloatField(default=None, null=True)
+#     lng = models.FloatField(default=None, null=True)
+#
+#     class Meta:
+#         verbose_name_plural = 'Addresses'
+#
+#     def __str__(self):
+#         return str(self.address_id)
+#
 
 class Review(models.Model):
     # Table for storing details about a coffee shop review

@@ -41,14 +41,14 @@ class CoffeeShopForm(forms.ModelForm):
     postcode = forms.CharField(max_length=128, help_text="Please enter the postcode")
     city = forms.CharField(max_length=128, help_text="Please enter the city")
     country = forms.CharField(max_length=128, help_text="Please enter the country")
-    # result = (gmaps.geocode(str(address_line_1) + ", " + str(postcode) + ", " +
-    #                         str(city) + ", " + str(country))[0]
-    #           .get("geometry", None).get("location", None))
+    address = (str(address_line_1) + ", " + str(postcode) + ", " +
+               str(city) + ", " + str(country))
+    #result = (gmaps.geocode(address)[0].get("geometry", None).get("location", None))
     # if result:
     #     lat = result.get("lat")
     #     lng = result.get("lng")
-    #else:
-        #invalid addresss
+    # else:
+    #     "invalid addresss"
     description = forms.CharField(max_length=CoffeeShop.DESC_MAX_LENGTH, help_text="Please enter a shop description.")
     image_location_folder = "Not sure yet"
     serves_food = forms.BooleanField(help_text="Please enter if the shop serves food.", required=False)
@@ -60,7 +60,7 @@ class CoffeeShopForm(forms.ModelForm):
     #     fields = ('address_line_1', 'postcode', 'city', 'country', )
     class Meta:
         model = CoffeeShop
-        fields = ('name','description','serves_food','price','address')
+        fields = ('name','description','serves_food','price','address','lat','lng')
 
 
 class ReviewForm(forms.ModelForm):

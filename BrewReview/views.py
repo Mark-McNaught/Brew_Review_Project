@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm, ReviewForm
-from BrewReview.models import CoffeeShop, Review, Addresses, UserProfile
+from BrewReview.models import CoffeeShop, Review, UserProfile
 
 import googlemaps
 
