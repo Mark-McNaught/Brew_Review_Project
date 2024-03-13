@@ -20,33 +20,33 @@ def map(request):
     coffee_shop_list = CoffeeShop.objects.all()
     length = len(coffee_shop_list)
     names = coffee_shop_list[0].name
-    if coffee_shop_list[0].address.lat is None or coffee_shop_list[0].address.lng is None:
-        result =gmaps.geocode(coffee_shop_list[0].address.address_line_1 + ", " + coffee_shop_list[0].address.postcode + ", " +
-                  coffee_shop_list[0].address.city + ", " + coffee_shop_list[0].address.country)[0].get("geometry",None).get("location",None)
-        lat = result.get("lat")
-        lng = result.get("lng")
-    else:
-        lat = coffee_shop_list[0].address.lat
-        lng = coffee_shop_list[0].address.lng
-    lat_list = str(lat)
-    lng_list = str(lng)
+    # if coffee_shop_list[0].address.lat is None or coffee_shop_list[0].address.lng is None:
+    #     result =gmaps.geocode(coffee_shop_list[0].address.address_line_1 + ", " + coffee_shop_list[0].address.postcode + ", " +
+    #               coffee_shop_list[0].address.city + ", " + coffee_shop_list[0].address.country)[0].get("geometry",None).get("location",None)
+    #     lat = result.get("lat")
+    #     lng = result.get("lng")
+    # else:
+    #     lat = coffee_shop_list[0].address.lat
+    #     lng = coffee_shop_list[0].address.lng
+    lat_list = str(coffee_shop_list[0].lat)
+    lng_list = str(coffee_shop_list[0].lng)
     for coffee_shop in coffee_shop_list[1:]:
         names += ", " + coffee_shop.name
-        if coffee_shop.address.lat is None and coffee_shop.address.lat is None:
-
-            result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
-            coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
-                      .get("geometry", None).get("location", None))
-            lat = result.get("lat")
-            lng = result.get("lng")
-            coffee_shop.address.lat = lat
-            coffee_shop.address.lng = lng
-            coffee_shop.address.save()
-            lat_list += ","+str(lat)
-            lng_list += ","+str(lng)
-        else:
-            lat_list += ","+str(coffee_shop.address.lat)
-            lng_list += ","+str(coffee_shop.address.lng)
+        # if coffee_shop.address.lat is None and coffee_shop.address.lat is None:
+        #
+        #     result = (gmaps.geocode(coffee_shop.address.address_line_1 + ", " + coffee_shop.address.postcode + ", " +
+        #     coffee_shop.address.city + ", " + coffee_shop.address.country)[0]
+        #               .get("geometry", None).get("location", None))
+        #     lat = result.get("lat")
+        #     lng = result.get("lng")
+        #     coffee_shop.address.lat = lat
+        #     coffee_shop.address.lng = lng
+        #     coffee_shop.address.save()
+        #     lat_list += ","+str(lat)
+        #     lng_list += ","+str(lng)
+        # else:
+        lat_list += ","+str(coffee_shop.lat)
+        lng_list += ","+str(coffee_shop.lng)
 
        # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
     context_dict = {'shops': coffee_shop_list, 'length': length, 'names': names, 'lat_list': lat_list, 'lng_list': lng_list }

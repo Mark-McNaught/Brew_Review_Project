@@ -189,7 +189,7 @@ def populate():
 
     # Create CoffeeShops
     coffee_shops = []
-    # for shop_info in coffee_shop_data:
+    for shop_info in coffee_shop_data:
     #     address = Addresses.objects.create(
     #         address_line_1=shop_info["address_line_1"],
     #         postcode=shop_info["postcode"],
@@ -199,14 +199,16 @@ def populate():
     #     )
 
         coffee_shop = CoffeeShop.objects.create(
-            name=shop_info["name"],
-            address=["address_line_1"]+["postcode"]+["city"]+["country"],
-
-            description=shop_info["description"],
-            serves_food=shop_info["serves_food"],
-            rating=shop_info["rating"],
-            price=shop_info["price"]
-        )
+                name=shop_info["name"],
+                address=shop_info["address_line_1"]+", "+shop_info["postcode"]+", "+
+                        shop_info["city"]+", "+shop_info["country"],
+                lat = shop_info["lat"],
+                lng = shop_info["lng"],
+                description=shop_info["description"],
+                serves_food=shop_info["serves_food"],
+                rating=shop_info["rating"],
+                price=shop_info["price"]
+            )
         coffee_shops.append(coffee_shop)
 
     # Create Users and Reviews
