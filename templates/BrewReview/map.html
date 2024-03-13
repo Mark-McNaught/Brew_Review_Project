@@ -59,23 +59,21 @@
                     title: name_array[i],
                     content: coffeeImage,
                 });
-                markersList.push(x);
-            }
-
-            for(let i=0;i<markersList.length;i++){
-                  markersList[i].addListener("click", () => {
+                x.addListener("click", () => {
                       console.log("Clicked");
+                      map.setZoom(9);
                    // add click event redirect to shop page
                 });
+                //markersList.push(x);
             }
 
-
-
-
-            // const pinBackground = new PinElement({
-            //       background: "#FBBC04",
+            // for(let i=0;i<markersList.length;i++){
+            //       markersList[i].addListener("click", () => {
+            //           console.log("Clicked");
+            //        // add click event redirect to shop page
             //     });
-            //  content:pinBackground.element,
+            // }
+
             // const marker1 = new AdvancedMarkerElement({
             //     map: map,
             //     position: {lat:55.8724,
