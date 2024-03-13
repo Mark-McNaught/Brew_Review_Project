@@ -108,8 +108,8 @@ def populate():
         "postcode": "G3 8AA",
         "city": "Glasgow",
         "country": "UK",
-        "lat":0.0,
-        "lng":0.0,
+        "lat":55.86654919999999,
+        "lng":-4.2895653,
         "description": "A trendy coffee spot with a rustic ambiance.",
         "serves_food": True,
         "rating": 3,
@@ -200,8 +200,10 @@ def populate():
 
         coffee_shop = CoffeeShop.objects.create(
                 name=shop_info["name"],
-                address=shop_info["address_line_1"]+", "+shop_info["postcode"]+", "+
-                        shop_info["city"]+", "+shop_info["country"],
+                address_line_1=shop_info["address_line_1"],
+                postcode = shop_info["postcode"],
+                city = shop_info["city"],
+                country = shop_info["country"],
                 lat = shop_info["lat"],
                 lng = shop_info["lng"],
                 description=shop_info["description"],

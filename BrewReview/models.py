@@ -13,7 +13,10 @@ class CoffeeShop(models.Model):
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)
     description = models.TextField(max_length=DESC_MAX_LENGTH)
-    address = models.TextField(max_length=ADDRESS_MAX_LENGTH)
+    address_line_1 = models.CharField(max_length=ADDRESS_MAX_LENGTH)
+    postcode = models.CharField(max_length=ADDRESS_MAX_LENGTH)
+    city = models.CharField(max_length=ADDRESS_MAX_LENGTH, null = True)
+    country = models.CharField(max_length=ADDRESS_MAX_LENGTH)
     lat = models.FloatField(default=None, null=True)
     lng = models.FloatField(default=None, null=True)
 

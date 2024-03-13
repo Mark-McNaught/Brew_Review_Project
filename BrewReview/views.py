@@ -72,22 +72,27 @@ def show_shop(request, shop_slug):
 def add_shop(request):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
     form = CoffeeShopForm()
-#     address = (str(address_line_1) + ", " + str(postcode) + ", " +
-#                str(city) + ", " + str(country))
+
 #     result = gmaps.geocode(address)
 #     print(address)
-    #result = (gmaps.geocode(address)[0].get("geometry", None).get("location", None))
-    # if result:
-    #     lat = result.get("lat")
-    #     lng = result.get("lng")
+
     # else:
     #     "invalid addresss"
     # A HTTP POST?
     if request.method == 'POST':
         form = CoffeeShopForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
-            return redirect('/BrewReview/')
+            shop = form.save(commit=True)
+            address = (str(shop.address_line_1) + ", " + str(shop.postcode) + ", " +
+                       str(shop.city) + ", " + str(shop.country))
+            result = (gmaps.geocode(address)[0].get("geometry", None).get("location", None))
+            if result:
+                shop.lat = result.get("lat")
+                shop.lng = result.get("lng")
+                shop.save()
+                return redirect('/BrewReview/')
+            else:
+                print("invalid address")
         else:
             print(form.errors)
     return render(request, 'BrewReview/add_shop.html', {'form': form})

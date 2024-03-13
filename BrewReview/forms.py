@@ -41,7 +41,8 @@ class CoffeeShopForm(forms.ModelForm):
     postcode = forms.CharField(max_length=128, help_text="Please enter the postcode")
     city = forms.CharField(max_length=128, help_text="Please enter the city")
     country = forms.CharField(max_length=128, help_text="Please enter the country")
-
+    address = (str(address_line_1) + ", " + str(postcode) + ", " +
+                               str(city) + ", " + str(country))
     description = forms.CharField(max_length=CoffeeShop.DESC_MAX_LENGTH, help_text="Please enter a shop description.")
     #image_location_folder = "Not sure yet"
     serves_food = forms.BooleanField(help_text="Please enter if the shop serves food.", required=False)
@@ -51,7 +52,8 @@ class CoffeeShopForm(forms.ModelForm):
 
     class Meta:
         model = CoffeeShop
-        fields = ('name','description','serves_food','price',)
+        fields = ('name','description','serves_food','price','address_line_1',
+                  'postcode', 'city','country')
 
 
 class ReviewForm(forms.ModelForm):

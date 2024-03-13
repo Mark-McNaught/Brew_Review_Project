@@ -60,9 +60,9 @@
                     content: coffeeImage,
                 });
                 x.addListener("click", () => {
-                      console.log("Clicked");
-                      map.setZoom(9);
-                   // add click event redirect to shop page
+                      //console.log("Clicked");
+                    // add click event redirect to shop page
+                      window.location.href="http://127.0.0.1:8000/BrewReview/shops/andina-colombian-cafe/";
                 });
                 //markersList.push(x);
             }
@@ -74,12 +74,6 @@
             //     });
             // }
 
-            // const marker1 = new AdvancedMarkerElement({
-            //     map: map,
-            //     position: {lat:55.8724,
-            //     lng: -4.2900},
-            //     title: "uni",
-            // })
         }
     </script>
     <div id="map">
