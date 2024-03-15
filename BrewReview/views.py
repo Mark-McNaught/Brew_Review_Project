@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-//from django.conf import settings
+#from django.conf import settings
 
 from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm, ReviewForm
 from BrewReview.models import CoffeeShop, Review, UserProfile
