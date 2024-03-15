@@ -17,22 +17,29 @@
 {% endblock %}
 
 {% block body_block %}
+    <h1> Find Shops </h1>
+    Filter By : <!-- serves food and favourites? -->
     {% if shops %}
             <p hidden id="names">{{ names }}</p>
             <p hidden id="length"> {{ length }}</p>
             <p hidden id = "lat_list"> {{ lat_list }}</p>
             <p hidden id = "lng_list"> {{ lng_list }}</p>
+            <p hidden id = "url_list"> {{ url_list }}</p>
     {% else %}
         <strong> There are no coffee shops </strong>
     {% endif %}
     <script>
-       // let markersList = [];
         let marker;
         let map;
         const name_array = document.getElementById("names").innerHTML.split(",");
         const length = document.getElementById("length").innerHTML;
         const lat_array = document.getElementById("lat_list").innerHTML.split(",");
         const lng_array = document.getElementById("lng_list").innerHTML.split(",");
+        const url_array = document.getElementById("url_list").innerHTML.split(",");
+        var current_url = window.location.href;
+        var current_url_segments = current_url.split("/");
+        var new_url_segments = current_url_segments.slice(0,-2);
+        var BASE_URL = new_url_segments.join("/");
 
         async function initMap() {
             const {Map} = await google.maps.importLibrary("maps");
@@ -60,20 +67,11 @@
                     content: coffeeImage,
                 });
                 x.addListener("click", () => {
-                      //console.log("Clicked");
                     // add click event redirect to shop page
-                      window.location.href="http://127.0.0.1:8000/BrewReview/shops/andina-colombian-cafe/";
+                      window.location.href= BASE_URL+"/shops/"+url_array[i];
                 });
                 //markersList.push(x);
             }
-
-            // for(let i=0;i<markersList.length;i++){
-            //       markersList[i].addListener("click", () => {
-            //           console.log("Clicked");
-            //        // add click event redirect to shop page
-            //     });
-            // }
-
         }
     </script>
     <div id="map">
