@@ -14,13 +14,40 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Sign up for Brew Review</h1>
-        <form id="user_form" method="post" action="." enctype="multipart/form-data">
+<div class="container">
+    <form class="form-signin" role="form" method="post" action=".">
+        {% csrf_token %}
+        <label for="id_username" class="sr-only">Username</label>
+        <input type="text" name="username" id="id_username" class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+               placeholder="Username" required autofocus>
+        {% for error in form.username.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_email" class="sr-only">Email</label>
+        <input type="email" name="email" id="id_email" class="form-control{% if form.email.errors %} is-invalid{% endif %}"
+               placeholder="Email" required autofocus>
+        {% for error in form.email.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_password1" class="sr-only">Password</label>
+        <input type="password" name="password1" id="id_password1" class="form-control{% if form.password1.errors %} is-invalid{% endif %}"
+               placeholder="Password" required>
+        {% for error in form.password1.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_password2" class="sr-only">Confirm Password</label>
+        <input type="password" name="password2" id="id_password2" class="form-control{% if form.password2.errors %} is-invalid{% endif %}"
+               placeholder="Confirm Password" required>
+        {% for error in form.password2.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Register</button>
+    </form>
+</div>
 
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            <input type="submit" name="submit"/>
-        </form>
 
 {% endblock %}
