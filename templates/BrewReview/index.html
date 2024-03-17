@@ -21,6 +21,7 @@
         window.location.href = "{% url 'BrewReview:map' %}";
     }
 </script>
+
 {% endblock %}
 
 {% block title_block %}
@@ -62,27 +63,31 @@
         </div>
       </div>
 
-      <!-- Right Half -->
-      <div class="col-md-6">
-        <div class="custom-container h-100">
-            <h1 class="display-2">Most Recent Reviews</h1>
-          <!-- Django template to loop through reviews -->
-          {% for review in reviews %}
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ review.title }}</h5>
-                  <p class="card-text">{{ review.content }}</p>
-                  <!-- Additional review fields -->
-                </div>
-              </div>
+<div class="col-md-6">
+    <div class="custom-container h-100">
+      <h1 class="display-2">Recent Reviews</h1>
+      <div class="row">
+        {% for review in recent_reviews %}
+        <div class="col-md-6 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ review.title }} by {{ review.user }}</h5>
+              <p class="card-text">Shop: {{ review.shop_name }}</p>
+              <p class="card-text">Rating: {{ review.rating }}</p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'BrewReview:show_shop' review.shop_slug %}" class="btn btn-primary">View {{ review.shop_name }}</a>
             </div>
           </div>
-          {% endfor %}
         </div>
+        {% if forloop.counter|divisibleby:2 and not forloop.last %}
+          </div><div class="row">
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>
+  
+  
 
 {% endblock %}

@@ -47,7 +47,7 @@ class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     coffee_shop = models.ForeignKey(CoffeeShop, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     rating = models.IntegerField(default=0)

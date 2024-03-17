@@ -7,7 +7,7 @@ class CoffeeShopAdmin(admin.ModelAdmin):
     list_display = ('name', 'address_line_1','postcode','city','country', 'rating', 'price')
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('coffee_shop', 'user', 'rating', 'review')
+    list_display = ('coffee_shop', 'user', 'rating', 'review', 'date')
 
 class SavedReviewsAdmin(admin.ModelAdmin):
     list_display = ('save_id', 'review_id', 'user')

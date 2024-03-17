@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 #from django.conf import settings
 
@@ -14,8 +14,28 @@ import googlemaps
 
 
 def index(request):
-    context_dict = {'boldmessage': 'Testing view and index template', 'navbar_active':'home'}
-    return render(request, 'BrewReview/index.html', context=context_dict)
+    recent_reviews = Review.objects.order_by('-date')[:6]  # Fetch the 4 most recent reviews
+    for review in recent_reviews:
+        shop_name = CoffeeShop.objects.get(pk=review.coffee_shop_id).name
+        slug = CoffeeShop.objects.get(pk=review.coffee_shop_id).slug
+        review.shop_name = shop_name
+        review.shop_slug = slug
+    return render(request, 'BrewReview/index.html', {'recent_reviews': recent_reviews})
+
+
+def get_recent_reviews(request):
+    recent_reviews = Review.objects.order_by('-date')[:6]
+    reviews_data = []
+    for review in recent_reviews:
+        review_data = {
+            'title': review.title,
+            'user': review.user.username,
+            'shop_name': review.coffee_shop.name,
+            'rating': review.rating,
+            'shop_slug': review.coffee_shop.slug
+        }
+        reviews_data.append(review_data)
+    return JsonResponse({'recent_reviews': reviews_data})
 
 def map(request):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
@@ -119,7 +139,6 @@ def account_settings(request):
 def profile(request):
     context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
-
 
 
 def signup(request):
