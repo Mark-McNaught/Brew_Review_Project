@@ -22,8 +22,5 @@ admin.site.register(CoffeeShop, CoffeeShopAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(SavedReviews)
 admin.site.register(FavouriteShops)
-#admin.site.register(Addresses)
-
-
 
 admin.site.register(UserProfile)

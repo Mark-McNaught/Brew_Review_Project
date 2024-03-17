@@ -1,20 +1,88 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
+{% block header_block %}
+<style>
+    /* Custom CSS */
+    .custom-container {
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff; /* Optional: Set background color */
+    }
+
+    #clickable {
+            cursor: pointer;
+        }
+  </style>
+
+<script>
+    function redirectToNewPage() {
+        window.location.href = "{% url 'BrewReview:map' %}";
+    }
+</script>
+{% endblock %}
+
 {% block title_block %}
     Index
 {% endblock %}
 
 {% block heading_block %}
-    Home
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Home
+        {% if user.is_authenticated %}
+         - Welcome {{ user.username }}!
+        {% endif %}
+        </h1>
+    </div>
+</div>
 {% endblock %}
 
 
 {% block body_block %}
-    <strong>Welcome, 
-    {% if user.is_authenticated %}
-        {{ user.username }}!
-    {% endif %}
-    </strong>
+<div class="container-fluid">
+    <div class="row">
+      <!-- Left Half -->
+      <div class="col-md-6">
+        <div class="custom-container h-100">
+          <h1 class="display-2">Welcome to BrewReview</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <img src="/static/images/IndexLogo.png" alt="Image of BrewReview Logo" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+              <img src="/static/images/google-maps-icon.jpg" alt="Image of a map and link to maps page" id="clickable" onclick="redirectToNewPage()" class="img-fluid">
+            </div>
+          </div>
+          <p class="lead">Your one-stop destination for discovering local coffee shops near you. 
+            Here you can view local coffee shops on the map, sort through coffee shops on the shops page,
+            , add your own review about a coffee shop, or even add your own coffee shop to the website.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Half -->
+      <div class="col-md-6">
+        <div class="custom-container h-100">
+            <h1 class="display-2">Most Recent Reviews</h1>
+          <!-- Django template to loop through reviews -->
+          {% for review in reviews %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ review.title }}</h5>
+                  <p class="card-text">{{ review.content }}</p>
+                  <!-- Additional review fields -->
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

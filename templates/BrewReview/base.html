@@ -15,7 +15,8 @@
     
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
+
 
     
     {% block header_block %}
@@ -25,18 +26,18 @@
 <body>
     <header>
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="{% url 'BrewReview:index' %}">BrewReview</a>
+            <a class="navbar-brand" href="{% url 'BrewReview:index' %}"><h1>BrewReview <img src="/static/images/NavLogo.png" class="d-inline-block align-center" height="80" alt="Image of BrewReview logo"></h1></a>
                 <ul class="nav justify-content-end">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'BrewReview:logout' %}">Logout </a>
+                            <a class="nav-link" href="{% url 'auth_logout' %}"><h2>Logout</h2></a>
                         </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'BrewReview:login' %}">Login </a>
+                        <a class="nav-link" href="{% url 'auth_login' %}"><h2>Login</h2></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'BrewReview:signup' %}">Signup</a>
+                        <a class="nav-link" href="{% url 'registration_register' %}"><h2>Sign Up</h2></a>
                     </li>
                     {% endif %}
                 </ul>
@@ -47,22 +48,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="{% if navbar_active == 'home' %}nav-item active{% else %}nav-item{% endif %}">
-              <a class="nav-link" href="{% url 'BrewReview:index' %}">Home </a>
+              <a class="nav-link" href="{% url 'BrewReview:index' %}"><h3>Home</h3></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'BrewReview:shops' %}">Shops</a>
+              <a class="nav-link" href="{% url 'BrewReview:shops' %}"><h3>Shops</h3></a>
             </li>
             <li class="{% if navbar_active == 'map' %}nav-item active{% else %}nav-item{% endif %}">
-                <a class="nav-link" href="{% url 'BrewReview:map' %}">Map</a>
+                <a class="nav-link" href="{% url 'BrewReview:map' %}"><h3>Map</h3></a>
               </li>
             <li class="{% if navbar_active == 'profile' %}nav-item active{% elif navbar_active == 'settings' %}nav-item active{% else %}nav-item{% endif %}">
-                <a class="nav-link" href="{% url 'BrewReview:profile' %}">{% if navbar_active == 'settings' %}Profile/Settings{% else %}Profile{% endif %}</a>
+                <a class="nav-link" href="{% url 'BrewReview:profile' %}">{% if navbar_active == 'settings' %}<h3>Profile/Settings</h3>{% else %}<h3>Profile</h3>{% endif %}</a>
             </li>
         </div>
       </nav>
       <br>
 
-
+    {% block heading_block %}
+    {% endblock %}
     {% block body_block %}
     {% endblock %}
 

@@ -1,21 +1,19 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
-
 {% block title_block %}
-    Account Settings
+    Logged Out
 {% endblock %}
-
 
 {% block heading_block %}
 <div class="jumbotron p-4 text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">{{ user.username }}'s Settings</h1>
+        <h1 class="jumbotron-heading">Logged Out</h1>
     </div>
 </div>
 {% endblock %}
 
 
 {% block body_block %}
-<a href="{% url 'auth_password_change' %}">Change your Password</a>
+    You have been logged out
 {% endblock %}

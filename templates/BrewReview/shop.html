@@ -6,7 +6,11 @@
 {% endblock %}
 
 {% block heading_block %}
-    {{ shop.name }}
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">{{shop.name}}</h1>
+    </div>
+</div>
 {% endblock %}
 
 {% block body_block %}

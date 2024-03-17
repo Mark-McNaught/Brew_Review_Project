@@ -1,0 +1,26 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+{% block heading_block %}
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Sign Up</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_block %}
+    <h1>Sign up for Brew Review</h1>
+        <form id="user_form" method="post" action="." enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="submit" name="submit"/>
+        </form>
+
+{% endblock %}
