@@ -14,19 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.urls import include
+from django.urls import path, include, reverse
 from BrewReview import views
 
 from django.conf import settings
 from django.conf.urls.static import static
 
+from registration.backends.simple.views import RegistrationView
 
 
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return reverse('BrewReview:register_profile')
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('BrewReview/', include('BrewReview.urls')),
+    path('accounts/register/', MyRegistrationView.as_view(), name='registration_register'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

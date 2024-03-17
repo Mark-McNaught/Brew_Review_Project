@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 
 #from django.conf import settings
 
-from BrewReview.forms import UserForm, UserProfileForm, CoffeeShopForm, ReviewForm
+from BrewReview.forms import UserProfileForm, CoffeeShopForm, ReviewForm
 from BrewReview.models import CoffeeShop, Review, UserProfile
 
 import googlemaps
@@ -139,3 +139,19 @@ def account_settings(request):
 def profile(request):
     context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
+
+
+@login_required
+def register_profile(request):
+    form = UserProfileForm()
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_profile = form.save(commit=False)
+            user_profile.user = request.user
+            user_profile.save()
+            return redirect(reverse('BrewReview:index'))
+        else:
+            print(form.errors)
+    context_dict = {'form': form}
+    return render(request, 'BrewReview/profile_registration.html', context_dict)

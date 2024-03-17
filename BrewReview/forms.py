@@ -5,31 +5,13 @@ from BrewReview.models import UserProfile, CoffeeShop, Review
 import googlemaps
 
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username','password',)
-
-    def clean(self):
-        cleaned_data = super(UserForm, self).clean()
-        password = cleaned_data.get("password")
-        confirm = cleaned_data.get("confirm_password")
-
-        if password != confirm:
-            raise forms.ValidationError(
-                "Passwords must match"
-            )
-
-
 class UserProfileForm(forms.ModelForm):
     owner = forms.BooleanField(required=False)
+    picture = forms.ImageField(required=False)
     
     class Meta:
         model = UserProfile
-        fields = ()
+        fields = ('picture', 'owner')
 
 
 

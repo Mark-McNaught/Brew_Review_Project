@@ -15,6 +15,7 @@ urlpatterns = [
     path('shops/<slug:shop_slug>/add_review/', views.add_review, name='add_review'),
     path('searched/', views.searched, name='searched'),
 
+    path('register_profile/', views.register_profile, name='register_profile'),
     path('profile/', views.profile, name='profile'),
     path('account_settings/', views.account_settings, name='account_settings'),
 

@@ -2,24 +2,47 @@
 {% load staticfiles %}
 
 
-    {% block title_block %}
-    Profile
-    {% endblock %}
+{% block title_block %}
+Profile
+{% endblock %}
 
-    {% block heading_block %}
-    <div class="jumbotron p-4 text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">{{ user.username }}'s Profile</h1>
+{% block heading_block %}
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">{{ user.username }}'s Profile</h1>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block body_block %}
+
+<div>
+    <a href="{% url 'BrewReview:account_settings' %}">User Settings</a>
+    <a href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <img src="{{ MEDIA_URL }}{{ user_profile.picture }}" width="300" height="300"
+            alt="{{ selected_user.username }}'s profile image" />
+        <br />
+        <div>
+            {% if selected_user == user %}
+            <form method="post" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update" />
+            </form>
+            {% else %}
+            <p>
+                <strong>Website:</strong>
+                <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
+            </p>
+            {% endif %}
         </div>
     </div>
-    {% endblock %}
+</div>
 
-
-    {% block body_block %}
-
-    <div>
-        <a href="{% url 'BrewReview:account_settings' %}">User Settings</a>
-        <a href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
-    </div>
-
-    {% endblock %}
+{% endblock %}
