@@ -1,11 +1,9 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
-
 {% block title_block %}
     Account Settings
 {% endblock %}
-
 
 {% block heading_block %}
 <div class="jumbotron p-4 text-center">
@@ -15,7 +13,54 @@
 </div>
 {% endblock %}
 
-
 {% block body_block %}
-<a href="{% url 'auth_password_change' %}">Change your Password</a>
+
+<style>
+    /* Custom CSS */
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff; /* Optional: Set background color */
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-container a {
+        margin-bottom: 10px;
+        width: 100%;
+        transition: background-color 0.3s; /* Add transition effect */
+    }
+
+    /* Red button for "Delete" on hover */
+    .btn-delete:hover {
+        background-color: red;
+        border-color: red;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="custom-container">
+                <div class="btn-container">
+                    <a href="#" class="btn btn-primary"><h3>Change your Username</h3></a>
+                    <a href="{% url 'auth_password_change' %}" class="btn btn-primary"><h3>Change your Password</h3></a>
+                    <a href="#" class="btn btn-primary btn-delete"><h3>Delete your Account</h3></a> <!-- Add btn-delete class -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block password_changed_block %}
+{% endblock %}
 {% endblock %}

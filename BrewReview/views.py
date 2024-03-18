@@ -14,12 +14,15 @@ import googlemaps
 
 
 def index(request):
-    recent_reviews = Review.objects.order_by('-date')[:6]  # Fetch the 4 most recent reviews
-    for review in recent_reviews:
-        shop_name = CoffeeShop.objects.get(pk=review.coffee_shop_id).name
-        slug = CoffeeShop.objects.get(pk=review.coffee_shop_id).slug
-        review.shop_name = shop_name
-        review.shop_slug = slug
+    try:
+        recent_reviews = Review.objects.order_by('-date')[:6]  # Fetch the 4 most recent reviews
+        for review in recent_reviews:
+            shop_name = CoffeeShop.objects.get(pk=review.coffee_shop_id).name
+            slug = CoffeeShop.objects.get(pk=review.coffee_shop_id).slug
+            review.shop_name = shop_name
+            review.shop_slug = slug
+    except:
+        recent_reviews = None
     return render(request, 'BrewReview/index.html', {'recent_reviews': recent_reviews})
 
 
