@@ -56,9 +56,11 @@
             <li class="{% if navbar_active == 'map' %}nav-item active{% else %}nav-item{% endif %}">
                 <a class="nav-link" href="{% url 'BrewReview:map' %}"><h3>Map</h3></a>
               </li>
+            {% if user.is_authenticated %}
             <li class="{% if navbar_active == 'profile' %}nav-item active{% elif navbar_active == 'settings' %}nav-item active{% else %}nav-item{% endif %}">
                 <a class="nav-link" href="{% url 'BrewReview:profile' %}">{% if navbar_active == 'settings' %}<h3>Profile/Settings</h3>{% else %}<h3>Profile</h3>{% endif %}</a>
             </li>
+            {% endif %}
         </div>
       </nav>
       <br>
