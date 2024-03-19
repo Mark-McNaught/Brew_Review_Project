@@ -6,27 +6,45 @@
 {% endblock %}
 
 {% block heading_block %}
-<div class="jumbotron p-4 text-center">
-    <div class="container">
-        <h1 class="jumbotron-heading">{{shop.name}}</h1>
+    <div class="container-fluid">
+        <h1> {{shop.name}} </h1>
     </div>
-</div>
 {% endblock %}
 
 {% block body_block %}
     <div>
         {% if shop %}
-            <h1> Reviews for {{shop.name}}:</h1>
-            {% if reviews %}
-                {% for r in reviews %}
-                    <p>{{r.review}}</p>
-                {% endfor %}
+            <div class="container-fluid">
+                <p> Rating : {{shop.rating}}/5 </p>
+                <p> {{shop.description}} </p>
+                <h1> Reviews for {{shop.name}} </h1>
+                {% if reviews %}
+                <div class="row">
+                    {% for r in reviews %}
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ r.title }}</h5>
+                                    <p class="card-text">Rating: {{ r.rating }}/5</p>
+                                    <p class="card-text">{{ r.review }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                            </div><div class="row">
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% else %}
                 <strong>There are no reviews for this shop yet</strong>
             {% endif %}
+            </div>
+
         {% else %}
             No such shop exists.
         {% endif %}
-        <a href="{% url 'BrewReview:add_review' shop.slug %}">Add review</a><br />
+        <div class="container-fluid p-3">
+            <a class="btn btn-primary" href="{% url 'BrewReview:add_review' shop.slug %}" role="button">Add Review</a>
+        </div>
     </div>
 {% endblock %}
