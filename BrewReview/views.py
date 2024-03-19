@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from django.db.models import Avg
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -118,10 +119,18 @@ def add_review(request, shop_slug):
             review.user = request.user
             review.save()
 
+            # Calculate the new average rating
+            new_avg_rating = Review.objects.filter(coffee_shop=shop).aggregate(Avg('rating'))['rating__avg']
+            if new_avg_rating is not None:
+                # Update the coffee shop rating with the new average rating
+                shop.rating = round(new_avg_rating, 1)  # Round to one decimal place
+                shop.save()
+
             return redirect(reverse('BrewReview:show_shop', kwargs={'shop_slug': shop_slug}))
         else:
             print(form.errors)
     return render(request, 'BrewReview/add_review.html', {'form': form, 'shop': shop})
+
 
 def searched(request):
     context_dict = {'navbar':'shops'}

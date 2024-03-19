@@ -29,7 +29,7 @@ class CoffeeShop(models.Model):
     serves_food = models.BooleanField(default=False)
 
     # Need to implement average rating still
-    rating = models.IntegerField(default=0, null=True)
+    rating = models.FloatField(default=0, null=True)
 
     price = models.IntegerField(default=0)
 
