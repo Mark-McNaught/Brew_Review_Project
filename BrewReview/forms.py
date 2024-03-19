@@ -21,7 +21,7 @@ class CoffeeShopForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the shop name.")
     description = forms.CharField(max_length=1000, help_text="Please enter a shop description.")
     serves_food = forms.BooleanField(help_text="Please enter if the shop serves food.", required=False)
-    price = forms.IntegerField(help_text="Please enter how expensive the shop is on a range 1 to 5.", max_value=5)
+    price = forms.ChoiceField(widget=forms.RadioSelect, choices=[(i, i) for i in range(1, 6)], help_text="Please enter how expensive the shop is on a range 1 to 5.")
     address_line_1 = forms.CharField(max_length=128, help_text="Please enter the first line of address")
     postcode = forms.CharField(max_length=10, help_text="Please enter the postcode")
     city = forms.CharField(max_length=128, help_text="Please enter the city")
