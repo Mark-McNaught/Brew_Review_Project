@@ -23,7 +23,7 @@ def index(request):
             review.shop_slug = slug
     except:
         recent_reviews = None
-    return render(request, 'BrewReview/index.html', {'recent_reviews': recent_reviews})
+    return render(request, 'BrewReview/index.html', {'navbar_active':'home', 'recent_reviews': recent_reviews})
 
 
 def get_recent_reviews(request):
@@ -55,7 +55,7 @@ def map(request):
         url_list += ","+str(coffee_shop.slug)
 
     # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
-    context_dict = {'shops': coffee_shop_list, 'length': length, 'names': names, 'lat_list': lat_list, 'lng_list': lng_list, 'url_list': url_list }
+    context_dict = {'navbar_active':'map','shops': coffee_shop_list, 'length': length, 'names': names, 'lat_list': lat_list, 'lng_list': lng_list, 'url_list': url_list }
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
@@ -75,6 +75,7 @@ def show_shop(request, shop_slug):
         context['reviews'] = None
     return render(request, 'BrewReview/shop.html', context=context)
 
+@login_required
 def add_shop(request):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
     form = CoffeeShopForm()

@@ -50,7 +50,7 @@
             <li class="{% if navbar_active == 'home' %}nav-item active{% else %}nav-item{% endif %}">
               <a class="nav-link" href="{% url 'BrewReview:index' %}"><h3>Home</h3></a>
             </li>
-            <li class="nav-item">
+            <li class="{% if navbar_active == 'shops' %}nav-item active{% else %}nav-item{% endif %}">
               <a class="nav-link" href="{% url 'BrewReview:shops' %}"><h3>Shops</h3></a>
             </li>
             <li class="{% if navbar_active == 'map' %}nav-item active{% else %}nav-item{% endif %}">

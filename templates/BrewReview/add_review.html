@@ -2,31 +2,83 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Add Review
+Add Review
+
+<style>
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        /* Optional: Set background color */
+    }
+</style>
 {% endblock %}
 
 {% block heading_block %}
 <div class="jumbotron p-4 text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Add Review</h1>
+        <h1 class="jumbotron-heading">Add Review for {{ shop.name }}</h1>
     </div>
 </div>
 {% endblock %}
 
 {% block body_block %}
-    <h1>Post review</h1>
-    <div>
-        <form id="add_review_form" method="post" action="{% url 'BrewReview:add_review' shop.slug %}">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }} <br>
-            {% endfor %}
-            <input type="submit" name="submit" value="Post Review" />
-        </form>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- Form Section -->
+        <div class="col-md-8">
+            <div class="custom-container">
+                <h1 class="display-4">Tell Us Your Thoughts</h1>
+                <p class="lead">On this page you can let us know about your recent experience at {{ shop.name }}.<br>
+                    Give your review a short general title, a rating for {{ shop.name }} out of 5, and then a in-depth
+                    description of your experience.</p>
+                <form id="add_review_form" method="post" action="{% url 'BrewReview:add_review' shop.slug %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control{% if form.title.errors %} is-invalid{% endif %}"
+                            id="title" name="title" placeholder="Enter your review title" required>
+                        {% for error in form.title.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label>Select Rating:</label>
+                        <div class="form-row">
+                            {% for choice in form.rating %}
+                            <div class="form-check form-check-inline">
+                                {{ choice }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% for error in form.rating.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="review">Review:</label>
+                        <textarea class="form-control{% if form.review.errors %} is-invalid{% endif %}" id="review"
+                            name="review" rows="3" placeholder="Enter your review" required></textarea>
+                        {% for error in form.review.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Post your
+                        Review</button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+
+<style>
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        /* Optional: Set background color */
+    }
+</style>
 {% endblock %}

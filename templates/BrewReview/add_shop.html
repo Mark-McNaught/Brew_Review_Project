@@ -14,19 +14,85 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add a Shop</h1>
-    <div>
-        <form id="category_form" method="post" action="{% url 'BrewReview:add_shop' %}">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }} <br>
-            {% endfor %}
-            <input type="submit" name="submit" value="Create Shop" />
-        </form>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- Form Section -->
+        <div class="col-md-8">
+            <div class="custom-container">
+                <h1 class="display-4">Add a Shop</h1>
+                <form id="add_shop_form" method="post" action="{% url 'BrewReview:add_shop' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_name">Name:</label>
+                        <input type="text" class="form-control{% if form.name.errors %} is-invalid{% endif %}" id="id_name" name="name" placeholder="Enter the shop name" required>
+                        {% for error in form.name.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_description">Description:</label>
+                        <textarea class="form-control{% if form.description.errors %} is-invalid{% endif %}" id="id_description" name="description" rows="3" placeholder="Enter a shop description" required></textarea>
+                        {% for error in form.description.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_serves_food">Serves Food:</label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="id_serves_food" name="serves_food">
+                            <label class="custom-control-label" for="id_serves_food">Yes</label>
+                        </div>
+                        </div>
+                    <div class="form-group">
+                        <label for="id_price">Price (1 to 5):</label>
+                        <input type="number" class="form-control{% if form.price.errors %} is-invalid{% endif %}" id="id_price" name="price" min="1" max="5" required>
+                        {% for error in form.price.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_address_line_1">Address Line 1:</label>
+                        <input type="text" class="form-control{% if form.address_line_1.errors %} is-invalid{% endif %}" id="id_address_line_1" name="address_line_1" placeholder="Enter the first line of address" required>
+                        {% for error in form.address_line_1.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_postcode">Postcode:</label>
+                        <input type="text" class="form-control{% if form.postcode.errors %} is-invalid{% endif %}" id="id_postcode" name="postcode" placeholder="Enter the postcode" required>
+                        {% for error in form.postcode.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        <input type="text" class="form-control{% if form.city.errors %} is-invalid{% endif %}" id="id_city" name="city" placeholder="Enter the city" required>
+                        {% for error in form.city.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        <input type="text" class="form-control{% if form.country.errors %} is-invalid{% endif %}" id="id_country" name="country" placeholder="Enter the country" required>
+                        {% for error in form.country.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Add Shop</button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+
+<style>
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+    }
+</style>
+
+
 {% endblock %}
