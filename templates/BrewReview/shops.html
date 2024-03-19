@@ -12,25 +12,31 @@
 
 {% block body_block %}
     <header>
-    <h1> Find Shops </h1>
-        <form class = 'd-flex' method=POST action="{% url 'BrewReview:searched' %}">
+        <div class="container-fluid">
+            <h1> Find Shops </h1>
+                <form class = 'd-flex' method=POST action="{% url 'BrewReview:searched' %}">
 
-            {% csrf_token %}
+                    {% csrf_token %}
 
-            <input class='form-control me-2' type="search" placeholder="Search Shops" aria-label="Search" name="search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+                    <input class='form-control me-2' type="search" placeholder="Search Shops" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+        </div>
     </header>
-    Filter By :
-    <div></div>
-    Sort By :
+
+    <div class="container-fluid">
+        Filter By :
+        <div></div>
+        Sort By :
+    </div>
+
 
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
 
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="row">
                 {% for shop in shops %}
-                <div class="col mb-5">
+                <div class="col-md-4 mb-5">
                     <div class="card h-100">
                     <!--when shops have images {{ shop.image_location_folder.url }}-->
                         <img class="card-imp-top" src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
@@ -46,6 +52,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                            </div><div class="row">
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
