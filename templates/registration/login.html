@@ -16,6 +16,9 @@
 
 {% block body_block %}
 <div class="container">
+    {% include 'BrewReview/delete_account.html' %}
+</div>
+<div class="container">
     <form class="form-signin" role="form" method="post" action=".">
     {% csrf_token %}
     <label for="inputUsername" class="sr-only">Username</label>
@@ -30,5 +33,8 @@
     value="Submit">Sign in</button>
     </form>
 </div>
-    
+
+
+
+
 {% endblock %}
