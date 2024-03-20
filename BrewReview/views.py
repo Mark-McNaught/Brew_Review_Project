@@ -41,11 +41,14 @@ def get_recent_reviews(request):
         reviews_data.append(review_data)
     return JsonResponse({'recent_reviews': reviews_data})
 
-def map(request, filter=False, center_lat=55.8724, center_lng=-4.2900, zoom=11):
+def map(request, center_lat=55.8724, center_lng=-4.2900, zoom=11):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
-    if filter:
+    filter_param = request.GET.get('filter', False)
+    if filter_param == "on":
+        filter_param = True
         coffee_shop_list = CoffeeShop.objects.filter(serves_food=True)
     else:
+        filter_param = False
         coffee_shop_list = CoffeeShop.objects.all()
     length = len(coffee_shop_list)
     names = coffee_shop_list[0].name
@@ -61,7 +64,8 @@ def map(request, filter=False, center_lat=55.8724, center_lng=-4.2900, zoom=11):
     # addresses += "!"+coffee_shop.address.address_line_1+", "+coffee_shop.address.postcode+", "+coffee_shop.address.city+", "+coffee_shop.address.country
     context_dict = {'navbar_active':'map', 'length': length, 'names': names, 'lat_list': lat_list,
                     'lng_list': lng_list, 'url_list': url_list, 'center_lat':center_lat,
-                    'center_lng':center_lng, 'zoom':zoom, 'shops':coffee_shop_list}
+                    'center_lng':center_lng, 'zoom':zoom, 'shops':coffee_shop_list,
+                    'filter_param':filter_param}
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):

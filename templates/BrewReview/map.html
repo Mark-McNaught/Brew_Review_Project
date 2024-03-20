@@ -24,7 +24,12 @@
 {% block body_block %}
     
     Filter By :<!-- serves food and favourites? -->
-   <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:map'  %}"> serves food</a>
+<!--   <a class="btn btn-outline-dark mt-auto" href="http://127.0.0.1:8000/BrewReview/map/?filter=True"> serves food</a>-->
+    <form action="{% url 'BrewReview:map' %}" method ="GET">
+        <input type="checkbox" id="filter_checkbox" name="filter" {% if filter_param %}checked{% endif %}>
+        <label for="filter_checkbox">Serves food</label>
+        <button type="submit">Apply Filter</button>
+    </form>
     {% if shops %}
             <p hidden id="names">{{ names }}</p>
             <p hidden id="length"> {{ length }}</p>
