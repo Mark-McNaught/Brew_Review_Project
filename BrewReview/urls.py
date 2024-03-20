@@ -19,5 +19,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('account_settings/', views.account_settings, name='account_settings'),
     path('change_username/', views.change_username, name='change_username'),
+    path('delete_account/', views.delete_account, name='delete_account'),
 
 ]

@@ -161,9 +161,13 @@ def change_username(request):
         form = ChangeUsernameForm()
     return render(request, 'BrewReview/change_username.html', {'form': form})
 
-
-
-
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        request.user.delete()
+        logout(request)
+        return redirect('BrewReview:delete_account')
+    return redirect('BrewReview:index')
 
 @login_required
 def profile(request):

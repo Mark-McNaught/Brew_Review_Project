@@ -57,12 +57,43 @@
                 <div class="btn-container">
                     <a href="{% url 'BrewReview:change_username' %}" class="btn btn-primary"><h3>Change your Username</h3></a>
                     <a href="{% url 'auth_password_change' %}" class="btn btn-primary"><h3>Change your Password</h3></a>
-                    <a href="#" class="btn btn-primary btn-delete"><h3>Delete your Account</h3></a>
+                    <a href="#" class="btn btn-primary btn-delete" id="delete-account-btn"><h3>Delete your Account</h3></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="deleteAccountModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Account Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="{% url 'BrewReview:delete_account' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('delete-account-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        $('#deleteAccountModal').modal('show');
+    });
+</script>
 
 {% block password_changed_block %}
 {% endblock %}
