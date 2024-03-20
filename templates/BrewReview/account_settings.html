@@ -51,10 +51,13 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="custom-container">
+                <h1 class="display-4">Change your Settings</h1>
+                <p class="lead">On this page you can alter some of the details associated with your account using the buttons below.<br>
+                You can change your username or password, and also delete your account should you choose to.</p>
                 <div class="btn-container">
-                    <a href="#" class="btn btn-primary"><h3>Change your Username</h3></a>
+                    <a href="{% url 'BrewReview:change_username' %}" class="btn btn-primary"><h3>Change your Username</h3></a>
                     <a href="{% url 'auth_password_change' %}" class="btn btn-primary"><h3>Change your Password</h3></a>
-                    <a href="#" class="btn btn-primary btn-delete"><h3>Delete your Account</h3></a> <!-- Add btn-delete class -->
+                    <a href="#" class="btn btn-primary btn-delete"><h3>Delete your Account</h3></a>
                 </div>
             </div>
         </div>

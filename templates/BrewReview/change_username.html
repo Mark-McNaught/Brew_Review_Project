@@ -1,0 +1,49 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Change Username
+{% endblock %}
+
+{% block heading_block %}
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Change Your Username</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_block %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- Form Section -->
+        <div class="col-md-4">
+            <div class="custom-container">
+                <h1 class="display-4">Change Username</h1>
+                <p class="lead">On this page, you can change your username by entering a new one in the form below.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_new_username">New Username:</label>
+                        <input type="text" name="new_username" id="id_new_username" class="form-control{% if form.new_username.errors %} is-invalid{% endif %}" placeholder="Current username: {{ user.username }}" required autofocus>
+                        {% for error in form.new_username.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Change Username</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        /* Optional: Set background color */
+    }
+</style>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 #from django.conf import settings
 
-from BrewReview.forms import UserProfileForm, CoffeeShopForm, ReviewForm
+from BrewReview.forms import UserProfileForm, CoffeeShopForm, ReviewForm, ChangeUsernameForm
 from BrewReview.models import CoffeeShop, Review, UserProfile
 
 import googlemaps
@@ -149,6 +149,23 @@ def searched(request):
 def account_settings(request):
     context_dict = {'navbar_active':'settings'}
     return render(request, 'BrewReview/account_settings.html', context=context_dict)
+
+
+@login_required
+def change_username(request):
+    if request.method == 'POST':
+        form = ChangeUsernameForm(request.POST)
+        if form.is_valid():
+            new_username = form.cleaned_data['new_username']
+            request.user.username = new_username
+            request.user.save()
+            return redirect('BrewReview:profile')  # Redirect to user profile page
+    else:
+        form = ChangeUsernameForm()
+    return render(request, 'BrewReview/change_username.html', {'form': form})
+
+
+
 
 
 @login_required

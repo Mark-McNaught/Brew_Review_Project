@@ -43,6 +43,7 @@ class ReviewForm(forms.ModelForm):
         fields = ('title', 'rating', 'review')
 
 
-
+class ChangeUsernameForm(forms.Form):
+    new_username = forms.CharField(max_length=150)
 
     
