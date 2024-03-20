@@ -170,8 +170,6 @@ def change_username(request):
 def delete_account(request):
     if request.method == 'POST':
         request.user.delete()
-        logout(request)
-        return redirect('BrewReview:delete_account')
     return redirect('BrewReview:index')
 
 @login_required
