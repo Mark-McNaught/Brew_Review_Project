@@ -8,7 +8,8 @@
 {% block header_block %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style>
-        #map {height: 400px; width:100%;}
+        #map {height: 100%; width:100%;}
+        html, body{height: 100%; margin: 0; padding: 0;}
     </style>
 {% endblock %}
 
@@ -22,7 +23,8 @@
 
 {% block body_block %}
     
-    Filter By : <!-- serves food and favourites? -->
+    Filter By :<!-- serves food and favourites? -->
+   <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:map'  %}"> serves food</a>
     {% if shops %}
             <p hidden id="names">{{ names }}</p>
             <p hidden id="length"> {{ length }}</p>
@@ -40,6 +42,7 @@
         const lat_array = document.getElementById("lat_list").innerHTML.split(",");
         const lng_array = document.getElementById("lng_list").innerHTML.split(",");
         const url_array = document.getElementById("url_list").innerHTML.split(",");
+
         var current_url = window.location.href;
         var current_url_segments = current_url.split("/");
         var new_url_segments = current_url_segments.slice(0,-2);

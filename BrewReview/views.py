@@ -41,9 +41,12 @@ def get_recent_reviews(request):
         reviews_data.append(review_data)
     return JsonResponse({'recent_reviews': reviews_data})
 
-def map(request):
+def map(request, filter=False):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
-    coffee_shop_list = CoffeeShop.objects.all()
+    if filter:
+        coffee_shop_list = CoffeeShop.objects.filter(serves_food=True)
+    else:
+        coffee_shop_list = CoffeeShop.objects.all()
     length = len(coffee_shop_list)
     names = coffee_shop_list[0].name
     lat_list = str(coffee_shop_list[0].lat)
