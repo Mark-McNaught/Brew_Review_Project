@@ -1,4 +1,3 @@
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Avg
@@ -6,10 +5,9 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
-#from django.conf import settings
 
-from BrewReview.forms import UserProfileForm, CoffeeShopForm, ReviewForm, ChangeUsernameForm
-from BrewReview.models import CoffeeShop, Review, UserProfile
+from BrewReview.forms import CoffeeShopForm, ReviewForm, ChangeUsernameForm
+from BrewReview.models import CoffeeShop, Review
 
 import googlemaps
 
@@ -87,23 +85,30 @@ def show_shop(request, shop_slug):
 
 @login_required
 def add_shop(request):
-    gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
+    gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")  # Replace "YOUR_API_KEY" with your actual API key
     form = CoffeeShopForm()
     # A HTTP POST?
     if request.method == 'POST':
-        form = CoffeeShopForm(request.POST)
+        form = CoffeeShopForm(request.POST, request.FILES)  # Pass request.FILES to handle image upload
         if form.is_valid():
-            shop = form.save(commit=True)
+            shop = form.save(commit=False)  # Don't commit yet to set owner_id
+            shop.owner_id = request.user  # Set the owner_id to the user submitting the form
+            shop.save()
+            
             address = (str(shop.address_line_1) + ", " + str(shop.postcode) + ", " +
                        str(shop.city) + ", " + str(shop.country))
-            result = (gmaps.geocode(address)[0].get("geometry", None).get("location", None))
+            result = gmaps.geocode(address)
             if result:
-                shop.lat = result.get("lat")
-                shop.lng = result.get("lng")
-                shop.save()
-                return redirect('/BrewReview/')
+                location = result[0].get("geometry", {}).get("location")
+                if location:
+                    shop.lat = location.get("lat")
+                    shop.lng = location.get("lng")
+                    shop.save()
+                    return redirect('/BrewReview/')
+                else:
+                    print("Invalid address")
             else:
-                print("invalid address")
+                print("Invalid address")
         else:
             print(form.errors)
     return render(request, 'BrewReview/add_shop.html', {'form': form})
@@ -180,19 +185,3 @@ def delete_account(request):
 def profile(request):
     context_dict = {'navbar_active':'profile'}
     return render(request, 'BrewReview/profile.html', context=context_dict)
-
-
-@login_required
-def register_profile(request):
-    form = UserProfileForm()
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            user_profile = form.save(commit=False)
-            user_profile.user = request.user
-            user_profile.save()
-            return redirect(reverse('BrewReview:index'))
-        else:
-            print(form.errors)
-    context_dict = {'form': form}
-    return render(request, 'BrewReview/profile_registration.html', context_dict)

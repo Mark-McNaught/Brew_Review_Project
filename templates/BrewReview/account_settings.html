@@ -59,6 +59,8 @@
                     <a href="{% url 'auth_password_change' %}" class="btn btn-primary"><h3>Change your Password</h3></a>
                     <a href="#" class="btn btn-primary btn-delete" id="delete-account-btn"><h3>Delete your Account</h3></a>
                 </div>
+                <p class="lead">If you delete your account, all of your reviews and any of your owned coffee shops will also be removed. <br>
+                    You can create an account again at any time, we hope to see you soon!</p>
             </div>
         </div>
     </div>
@@ -74,9 +76,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="lead">We are sorry that you have decided to delete your account.<br>
-                    All of your reviews and any of your owned coffee shops will also be removed. <br>
-                    You can create an account again at any time, we hope to see you soon!</p>
+                    Are you sure you want to delte your account?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -84,7 +84,6 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Confirm Delete</button>
                 </form>
-                
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ class CoffeeShop(models.Model):
     ADDRESS_MAX_LENGTH = 256
     POSTCODE_MAX_LENGTH = 10
 
+    owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
     shop_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)
@@ -23,14 +24,9 @@ class CoffeeShop(models.Model):
     lat = models.FloatField(default=None, null=True,)
     lng = models.FloatField(default=None, null=True)
 
-    # Need to implement image folder still
-    image_location_folder = models.URLField(max_length=256, unique=True, null=True)
-
+    picture = models.ImageField(upload_to='shop_images', blank=True)
     serves_food = models.BooleanField(default=False)
-
-    # Need to implement average rating still
     rating = models.FloatField(default=0, null=True)
-
     price = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
@@ -81,15 +77,3 @@ class FavouriteShops(models.Model):
 
     def __str__(self):
         return str(self.fav_id)
-
-
-
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    owner = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.user.username

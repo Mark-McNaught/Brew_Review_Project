@@ -16,14 +16,13 @@ Add Shop
 {% block body_block %}
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <!-- Form Section -->
         <div class="col-md-8">
             <div class="custom-container">
                 <h1 class="display-4">Add Your Shop</h1>
                 <p class="lead">On this page you can add your own coffee shop to the site.<br>
                     We will need the following information in order to create a page for your shop as well as show it on
                     the map.</p>
-                <form id="add_shop_form" method="post" action="{% url 'BrewReview:add_shop' %}">
+                <form id="add_shop_form" method="post" action="{% url 'BrewReview:add_shop' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_name">Name:</label>
@@ -96,6 +95,13 @@ Add Shop
                         <div class="invalid-feedback">{{ error }}</div>
                         {% endfor %}
                     </div>
+                    <div class="form-group">
+                        <label for="id_picture">Picture:</label>
+                        <input type="file" class="form-control-file{% if form.picture.errors %} is-invalid{% endif %}" id="id_picture" name="picture">
+                        {% for error in form.picture.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>                    
                     <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Add Shop</button>
                 </form>
             </div>

@@ -1,19 +1,7 @@
 from typing import Any
 from django import forms
-from django.contrib.auth.models import User
-from BrewReview.models import UserProfile, CoffeeShop, Review
+from BrewReview.models import CoffeeShop, Review
 import googlemaps
-
-
-class UserProfileForm(forms.ModelForm):
-    owner = forms.BooleanField(required=False)
-    picture = forms.ImageField(required=False)
-    
-    class Meta:
-        model = UserProfile
-        fields = ('picture', 'owner')
-
-
 
 class CoffeeShopForm(forms.ModelForm):
     gmaps = googlemaps.Client(key="AIzaSyDDv5ekhgkSI-hTpzWp8bXYwxrP0D8IBjQ")
@@ -26,10 +14,11 @@ class CoffeeShopForm(forms.ModelForm):
     postcode = forms.CharField(max_length=10, help_text="Please enter the postcode")
     city = forms.CharField(max_length=128, help_text="Please enter the city")
     country = forms.CharField(max_length=128, help_text="Please enter the country")
+    picture = forms.ImageField(required=False)
 
     class Meta:
         model = CoffeeShop
-        fields = ('name', 'description', 'serves_food', 'price', 'address_line_1', 'postcode', 'city', 'country')
+        fields = ('name', 'description', 'serves_food', 'price', 'address_line_1', 'postcode', 'city', 'country', 'picture')
 
 
 class ReviewForm(forms.ModelForm):

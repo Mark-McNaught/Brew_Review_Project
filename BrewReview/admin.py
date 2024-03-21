@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from BrewReview.models import CoffeeShop, Review, SavedReviews, FavouriteShops, UserProfile
+from BrewReview.models import CoffeeShop, Review, SavedReviews, FavouriteShops
 
 class CoffeeShopAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
@@ -22,5 +22,3 @@ admin.site.register(CoffeeShop, CoffeeShopAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(SavedReviews)
 admin.site.register(FavouriteShops)
-
-admin.site.register(UserProfile)
