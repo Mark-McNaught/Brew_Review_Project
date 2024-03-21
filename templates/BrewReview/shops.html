@@ -36,15 +36,29 @@
 
             <div class="row">
                 {% for shop in shops %}
-                <div class="col-md-4 mb-5">
+                <div class="col-md-3 mb-5">
                     <div class="card h-100">
-                    <!--when shops have images {{ shop.image_location_folder.url }}-->
-                        <img class="card-imp-top" src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
-                            alt="..." />
+                        <div class="col-md-xl image-container">
+                            <!--when shops have images {{ shop.image_location_folder.url }}-->
+                            {% if shop.picture %}
+                                <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
+                            {% else %}
+                                <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                            {% endif %}
+                        </div>
                         <div class="card-body p4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">{{ shop.name }}</h5>
                                 {{shop.rating}}/5
+                                <br>
+                                {% if shop.price == 3 %}
+                                    ££
+                                {% elif shop.price > 2 %}
+                                    £££
+                                {% elif shop.price < 3 %}
+                                    £
+                                {% endif %}
+
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
                                         <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:show_shop' shop.slug %}">View Shop</a>
@@ -61,5 +75,24 @@
             </div>
         </div>
     </section>
-{% endblock %}
 
+<style>
+    .image-container {
+        width: 100%;
+        padding-top: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .image-container img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+
+{% endblock %}

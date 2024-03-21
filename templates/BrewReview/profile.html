@@ -15,9 +15,10 @@ Profile
 
 {% block body_block %}
 
-<div>
-    <a href="{% url 'BrewReview:account_settings' %}">User Settings</a>
-    <a href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
+<div class="container-fluid p-3">
+    <a class="btn btn-outline-dark mt-auto mb-3" href="{% url 'BrewReview:account_settings' %}">User Settings</a>
+    <br>
+    <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
 </div>
 
 <div class="container">
@@ -32,15 +33,10 @@ Profile
                 </form>
                 {% else %}
                 <p>
-                    <strong>Website:</strong>
                     <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
                 </p>
                 {% endif %}
             </div>
-        </div>
-        <div class="col-md-6">
-            <img src="{{ MEDIA_URL }}{{ user_profile.picture }}" width="300" height="300"
-                alt="{{ selected_user.username }}'s profile image" />
         </div>
     </div>
 </div>
