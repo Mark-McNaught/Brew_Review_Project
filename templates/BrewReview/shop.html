@@ -6,27 +6,51 @@
 {% endblock %}
 
 {% block heading_block %}
-    <div class="container-fluid">
-        <h1> {{shop.name}} </h1>
+    <div class="jumbotron p-4 text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ shop.name }}</h1>
+        </div>
     </div>
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        {% if shop %}
-            <div class="container-fluid">
-                <p> Rating : {{shop.rating}}/5 </p>
-                <p> {{shop.description}} </p>
-                <h1> Reviews for {{shop.name}} </h1>
-                {% if reviews %}
+    <div class="container-fluid">
+        <!-- Shop Section -->
+        <div class="row align-items-start">
+            <!-- Picture Section (1/3 width) -->
+            <div class="col-md-4">
+                {% if shop.picture %}
+                    <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
+                {% else %}
+                    <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                {% endif %}
+            </div>
+            <!-- Text Section (2/3 width) -->
+            <div class="col-md-8">
+                <!-- Shop Details -->
+                <p class="align-top"><strong>Description:</strong> {{ shop.description }}</p>
+                <p><strong>Address:</strong> {{ shop.address_line_1 }}, {{ shop.postcode }}, {{ shop.city }}, {{ shop.country }}</p>
+                <p><strong>Owner:</strong> {{ shop.owner_id.username }}</p>
+                <p><strong>Rating:</strong> {{ shop.rating }}/5</p>
+                <p><strong>Price:</strong> {{ shop.price }}/5</p>
+                <p><strong>Serves Food:</strong> {% if shop.serves_food %} Yes {% else %} No {% endif %}</p>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="container-fluid mt-5">
+            <h2>Reviews</h2>
+            {% if reviews %}
                 <div class="row">
-                    {% for r in reviews %}
+                    {% for review in reviews %}
                         <div class="col-md-3 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ r.title }}</h5>
-                                    <p class="card-text">Rating: {{ r.rating }}/5</p>
-                                    <p class="card-text">{{ r.review }}</p>
+                                    <h5 class="card-title">{{ review.title }} by {{ review.user }}</h5>
+                                    <p class="card-text">{{ review.review }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <p class="card-text">{{ review.rating }}/5</p>
                                 </div>
                             </div>
                         </div>
@@ -36,15 +60,8 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <strong>There are no reviews for this shop yet</strong>
+                <p><strong>There are no reviews for this shop yet</strong></p>
             {% endif %}
-            </div>
-
-        {% else %}
-            No such shop exists.
-        {% endif %}
-        <div class="container-fluid p-3">
-            <a class="btn btn-primary" href="{% url 'BrewReview:add_review' shop.slug %}" role="button">Add Review</a>
         </div>
     </div>
 {% endblock %}

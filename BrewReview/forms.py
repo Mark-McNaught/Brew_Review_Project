@@ -1,5 +1,6 @@
 from typing import Any
 from django import forms
+
 from BrewReview.models import CoffeeShop, Review
 import googlemaps
 
@@ -35,4 +36,3 @@ class ReviewForm(forms.ModelForm):
 class ChangeUsernameForm(forms.Form):
     new_username = forms.CharField(max_length=150)
 
-    

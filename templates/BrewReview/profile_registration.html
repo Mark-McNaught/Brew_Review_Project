@@ -1,0 +1,52 @@
+{% extends 'BrewReview/base.html' %}
+{% load staticfiles %}
+
+{% block header_block %}
+<style>
+    /* Custom CSS */
+    .custom-container {
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff; /* Optional: Set background color */
+    }
+
+    #clickable {
+            cursor: pointer;
+        }
+  </style>
+
+<script>
+    function redirectToNewPage() {
+        window.location.href = "{% url 'BrewReview:map' %}";
+    }
+</script>
+
+{% endblock %}
+
+{% block title_block %}
+    Register - Step 2
+{% endblock %}
+
+{% block heading_block %}
+<div class="jumbotron p-4 text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Register - Step 2</h1>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block body_block %}
+<div class="container">
+        <div class="row">
+            <form method="post" action="{% url 'BrewReview:register_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Create Profile">
+            </form>
+        </div>
+</div>
+{% endblock %}
