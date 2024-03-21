@@ -183,5 +183,26 @@ def delete_account(request):
 
 @login_required
 def profile(request):
-    context_dict = {'navbar_active':'profile'}
-    return render(request, 'BrewReview/profile.html', context=context_dict)
+    shops = []
+    try:
+        user_id = request.user.id
+        user_reviews = Review.objects.filter(user=user_id)
+        recent_reviews=user_reviews.order_by('-date')
+        for review in recent_reviews:
+            shop_name = CoffeeShop.objects.get(pk=review.coffee_shop_id).name
+            slug = CoffeeShop.objects.get(pk=review.coffee_shop_id).slug
+            review.shop_name = shop_name
+            review.shop_slug = slug 
+            shop_info = {
+                'name': review.coffee_shop.name,
+                'slug': review.coffee_shop.slug,
+                'rating': review.coffee_shop.rating
+            }
+            shops.append(shop_info)
+    except:
+        shops = None
+        recent_reviews = None
+    return render(request, 'BrewReview/profile.html', context = {'navbar_active':'profile', 'recent_reviews': recent_reviews, 'shops':shops})
+    ## context_dict = {'navbar_active':'profile'}
+    ## return render(request, 'BrewReview/profile.html', context=context_dict)
+

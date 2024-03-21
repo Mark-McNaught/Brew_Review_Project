@@ -1,7 +1,6 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
-
 {% block title_block %}
 Profile
 {% endblock %}
@@ -14,7 +13,6 @@ Profile
 </div>
 {% endblock %}
 
-
 {% block body_block %}
 
 <div>
@@ -22,27 +20,154 @@ Profile
     <a href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
 </div>
 
-
 <div class="container">
     <div class="row">
-        <img src="{{ MEDIA_URL }}{{ user_profile.picture }}" width="300" height="300"
-            alt="{{ selected_user.username }}'s profile image" />
-        <br />
-        <div>
-            {% if selected_user == user %}
-            <form method="post" action="." enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Update" />
-            </form>
-            {% else %}
-            <p>
-                <strong>Website:</strong>
-                <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
-            </p>
-            {% endif %}
+        <div class="col-md-6">
+            <div>
+                {% if selected_user == user %}
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Update" />
+                </form>
+                {% else %}
+                <p>
+                    <strong>Website:</strong>
+                    <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}{{ user_profile.picture }}" width="300" height="300"
+                alt="{{ selected_user.username }}'s profile image" />
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom CSS */
+    .custom-container {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff; /* Optional: Set background color */
+    }
+
+    #clickable {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function redirectToNewPage() {
+        window.location.href = "{% url 'BrewReview:map' %}";
+    }
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="custom-container h-100">
+                <h1 class="display-2">Recent Reviews</h1>
+                <div class="row">
+                    {% for review in recent_reviews %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ review.title }} by {{ review.user }}</h5>
+                                <p class="card-text">Shop: {{ review.shop_name }}</p>
+                                <p class="card-text">Rating: {{ review.rating }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'BrewReview:show_shop' review.shop_slug %}"
+                                    class="btn btn-primary">View {{ review.shop_name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                </div>
+                <div class="row">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="custom-container h-100">
+                        <h1 class="display-2">Recently Visited</h1>
+                        <div class="row">
+                            {% for shop in shops %}
+                            <div class="col-md-4 mb-5">
+                                <div class="card h-100">
+                                    <!--when shops have images {{ shop.image_location_folder.url }}-->
+                                    <img class="card-imp-top"
+                                        src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
+                                        alt="..." />
+                                    <div class="card-body p4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder">{{ shop.name }}</h5>
+                                            {{ shop.rating }}/5
+                                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                <div class="text-center">
+                                                    <a class="btn btn-outline-dark mt-auto"
+                                                        href="{% url 'BrewReview:show_shop' shop.slug %}">View
+                                                        Shop</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                </div>
+                                <div class="row">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="custom-container h-100">
+                        <h1 class="display-2">Favourite Shops</h1>
+                        <div class="row">
+                            {% for shop in favourite_shops %}
+                            <div class="col-md-4 mb-5">
+                                <div class="card h-100">
+                                    <!--when shops have images {{ shop.image_location_folder.url }}-->
+                                    <img class="card-imp-top"
+                                        src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
+                                        alt="..." />
+                                    <div class="card-body p4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder">{{ shop.name }}</h5>
+                                            {{ shop.rating }}/5
+                                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                <div class="text-center">
+                                                    <a class="btn btn-outline-dark mt-auto"
+                                                        href="{% url 'BrewReview:show_shop' shop.slug %}">View
+                                                        Shop</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                </div>
+                                <div class="row">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+
