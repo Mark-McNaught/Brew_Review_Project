@@ -31,8 +31,14 @@
         <label for="filter_checkbox">Serves food</label>
         <button type="submit">Apply Filter</button>
     </form>
-        <div></div>
-        Sort By :
+    <div></div>
+    <div class="container-fluid">
+        Sort By:
+            <form action="{% url 'BrewReview:shops' %}" method="GET">
+                <button type="submit" name="sort_by" value="rating_desc">Rating (High to Low)</button>
+                <button type="submit" name="sort_by" value="price_desc">Price (High to Low)</button>
+            </form>
+        </div>
     </div>
 
 

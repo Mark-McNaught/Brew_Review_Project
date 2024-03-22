@@ -67,7 +67,6 @@ def map(request, center_lat=55.8724, center_lng=-4.2900, zoom=11):
     return render(request, 'BrewReview/map.html', context=context_dict)
 
 def shops(request):
-    shops = CoffeeShop.objects.all()
     filter_param = request.GET.get('filter', False)
     if filter_param == "on":
         filter_param = True
@@ -75,7 +74,14 @@ def shops(request):
     else:
         filter_param = False
         coffee_shop_list = CoffeeShop.objects.all()
-    context_dict = {'navbar_active':'shops', 'shops':shops, 'filter_param':filter_param}
+    
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'rating_desc':
+        coffee_shop_list = coffee_shop_list.order_by('-rating')
+    elif sort_by == 'price_desc':
+        coffee_shop_list = coffee_shop_list.order_by('-price')
+
+    context_dict = {'navbar_active':'shops', 'shops':coffee_shop_list, 'filter_param':filter_param}
     return render(request, 'BrewReview/shops.html', context=context_dict)
 
 def show_shop(request, shop_slug):
