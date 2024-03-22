@@ -48,6 +48,9 @@ def map(request, center_lat=55.8724, center_lng=-4.2900, zoom=11):
     else:
         filter_param = False
         coffee_shop_list = CoffeeShop.objects.all()
+    center_lat = request.GET.get('lat',55.8724)
+    center_lng = request.GET.get('lng',-4.2900)
+    zoom = request.GET.get('zoom',12)
     length = len(coffee_shop_list)
     names = coffee_shop_list[0].name
     lat_list = str(coffee_shop_list[0].lat)
