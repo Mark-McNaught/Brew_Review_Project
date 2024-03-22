@@ -134,8 +134,8 @@ def add_shop(request):
 
 
 @login_required
-def remove_shop(request, shop_name):
-    shop = get_object_or_404(CoffeeShop, name=shop_name)
+def remove_shop(request, slug):
+    shop = get_object_or_404(CoffeeShop, slug=slug)
     if request.user == shop.owner_id:
         shop.delete()
         return redirect('BrewReview:profile')

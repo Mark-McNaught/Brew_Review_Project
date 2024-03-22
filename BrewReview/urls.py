@@ -12,7 +12,7 @@ urlpatterns = [
     path('shops/', views.shops, name='shops'),
     path('shops/<slug:shop_slug>/', views.show_shop, name='show_shop'),
     path('add_shop/', views.add_shop, name='add_shop'),
-    path('remove_shop/<str:shop_name>', views.remove_shop, name='remove_shop'),
+    path('remove_shop/<slug:slug>', views.remove_shop, name='remove_shop'),
 
     path('shops/<slug:shop_slug>/add_review/', views.add_review, name='add_review'),
     path('remove_review/<int:review_id>/', views.remove_review, name='remove_review'),
