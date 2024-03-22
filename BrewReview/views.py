@@ -228,9 +228,8 @@ def delete_account(request):
 @login_required
 def profile(request):
     shops = []
-    favourites = []
+    user_id = request.user.id
     try:
-        user_id = request.user.id
         user_reviews = Review.objects.filter(user=user_id)
         recent_reviews=user_reviews.order_by('-date')
         for review in recent_reviews:
@@ -247,20 +246,5 @@ def profile(request):
     except:
         shops = None
         recent_reviews = None
-    try:
-        favourite_shops = FavouriteShops.object.filter(user=user_id)
-        for favourite in favourite_shops:
-            shop_name = CoffeeShop.objects.get(pk=favourite.coffee_shop_id).name
-            slug = CoffeeShop.objects.get(pk=favourite.coffee_shop_id).slug
-            favourite.shop_name = shop_name
-            favourite.shop_slug = slug 
-            shop_info = {
-                'name': favourite.coffee_shop.name,
-                'slug': favourite.coffee_shop.slug,
-                'rating': favourite.coffee_shop.rating
-            }
-            favourites.append(shop_info)
-    except:
-        favourites = None
-    return render(request, 'BrewReview/profile.html', context = {'navbar_active':'profile', 'recent_reviews': recent_reviews, 'shops':shops, 'favourites':favourites})
-
+    owned_shops = CoffeeShop.objects.filter(owner_id=user_id)
+    return render(request, 'BrewReview/profile.html', context = {'navbar_active':'profile', 'recent_reviews': recent_reviews, 'shops':shops, 'owned_shops':owned_shops})

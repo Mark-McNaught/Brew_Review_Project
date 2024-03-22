@@ -109,9 +109,9 @@ Profile
                 </div>
                 <div class="col-md-12">
                     <div class="custom-container_2 h-100">
-                        <h1 class="display-2">Favourite Shops</h1>
+                        <h1 class="display-2">Owned Shops</h1>
                         <div class="row">
-                            {% for shop in favourites %}
+                            {% for shop in owned_shops %}
                             <div class="col-md-4 mb-5">
                                 <div class="card h-100">
                                     {% if shop.picture %}
@@ -148,4 +148,3 @@ Profile
 </div>
 
 {% endblock %}
-
