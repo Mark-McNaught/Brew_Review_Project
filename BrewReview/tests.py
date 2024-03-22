@@ -31,6 +31,10 @@ class CoffeeShopAdminTest(TestCase):
 
 
 
+
+
+
+
         # Check if all fields in `list_display` are in the response
         self.assertContains(response, "Test Coffee")
         self.assertContains(response, "123 Test St")
@@ -71,8 +75,13 @@ class CoffeeShopFormTest(TestCase):
             'city': 'Test City',
             'country': 'Test Country',
         }
+
+
+
         form = CoffeeShopForm(data=form_data)
         self.assertTrue(form.is_valid())
+
+
 
 class ReviewFormTest(TestCase):
 
@@ -179,6 +188,8 @@ class URLTests(SimpleTestCase):
     def test_change_username_url_resolves(self):
         url = reverse('BrewReview:change_username')
         self.assertEqual(resolve(url).func, views.change_username)
+
+        
 
     def test_delete_account_url_resolves(self):
         url = reverse('BrewReview:delete_account')
