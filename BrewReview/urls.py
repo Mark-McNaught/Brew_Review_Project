@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('shops/', views.shops, name='shops'),
     path('shops/<slug:shop_slug>/', views.show_shop, name='show_shop'),
+    path('add_favorite/<slug:shop_slug>/', views.add_favorite, name='add_favorite'),
     path('add_shop/', views.add_shop, name='add_shop'),
     path('shops/<slug:shop_slug>/add_review/', views.add_review, name='add_review'),
     path('searched/', views.searched, name='searched'),

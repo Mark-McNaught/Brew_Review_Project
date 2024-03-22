@@ -1,7 +1,6 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
-
 {% block title_block %}
     {{ shop.name }}
 {% endblock %}
@@ -35,6 +34,13 @@
                 <p><strong>Rating:</strong> {{ shop.rating }}/5</p>
                 <p><strong>Price:</strong> {{ shop.price }}/5</p>
                 <p><strong>Serves Food:</strong> {% if shop.serves_food %} Yes {% else %} No {% endif %}</p>
+                
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">
+                        {% if is_favorite %} Unfavorite {% else %} Add to Favorites {% endif %}
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -64,17 +70,8 @@
                 <p><strong>There are no reviews for this shop yet</strong></p>
             {% endif %}
         </div>
-                <div class="container-fluid p-3">
-                    <a class="btn btn-primary" href="{% url 'BrewReview:add_review' shop.slug %}" role="button">Add Review</a>
-<!--                    <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:map'  %}">View Shop on Map</a>-->
-                    <form action="{% url 'BrewReview:map' %}" method ="GET">
-                        <input type="hidden" id="lat" name="lat" value = {{ shop.lat }}>
-                        <input type = "hidden" id="lng" name="lng" value = {{ shop.lng}}>
-                        <input type = "hidden" id="zoom" name="zoom" value = 16>
-                        <label for="lat"></label>
-                       <button type="submit">View shop on map</button>
-                    </form>
+        <div class="container-fluid p-3">
+            <a class="btn btn-primary" href="{% url 'BrewReview:add_review' shop.slug %}" role="button">Add Review</a>
         </div>
-
     </div>
 {% endblock %}

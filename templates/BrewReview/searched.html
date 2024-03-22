@@ -1,21 +1,45 @@
 {% extends 'BrewReview/base.html' %}
 {% load staticfiles %}
 
+{% block heading_block %}
+    <div class="jumbotron p-4 text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Search Results</h1>
+        </div>
+    </div>
+{% endblock %}
+
 {% block body_block %}
+    <header>
+        <div class="container-fluid">
+            <form class = 'd-flex' method=POST action="{% url 'BrewReview:searched' %}">
+
+                {% csrf_token %}
+
+                <input class='form-control me-2' type="search" placeholder="Search Shops" aria-label="Search" name="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+    <br>
+
     {% if search %}
-        <h1> You Searched For {{ search }}</h1>
-        <br/>
+    <div class="container-fluid">
+        <h1> Search results for : {{ search }}</h1>
+    </div>
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="container-fluid">
+                <div class="row">
                     {% for CoffeeShop in shops %}
-                    <div class="col mb-5">
+                    <div class="col-md-3 mb-5">
                         <div class="card h-100">
-                        {% if shop.picture %}
-                                <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
-                            {% else %}
-                                <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
-                            {% endif %}
+                            <div class="col-md-xl image-container">
+                                {% if CoffeeShop.picture %}
+                                    <img src="{{ CoffeeShop.picture.url }}" class="img-fluid" alt="{{ CoffeeShop.name }}">
+                                {% else %}
+                                    <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                                {% endif %}
+                            </div>
                             <div class="card-body p4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder">{{CoffeeShop.name}}</h5>
