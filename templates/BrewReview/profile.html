@@ -21,31 +21,12 @@ Profile
     <a class="btn btn-outline-dark mt-auto" href="{% url 'BrewReview:add_shop' %}">Add your Coffee Shop</a>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div>
-                {% if selected_user == user %}
-                <form method="post" action="." enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Update" />
-                </form>
-                {% else %}
-                <p>
-                    <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
-                </p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container-fluid pb-3">
     <div class="row">
         <div class="col-md-6">
             <div class="custom-container_2 h-100">
-                <h1 class="display-2">Recent Reviews</h1>
+                <h1 class="display-2">Your Reviews</h1>
                 <div class="row">
                     {% for review in recent_reviews %}
                     <div class="col-md-6 mb-3">
@@ -58,6 +39,7 @@ Profile
                             <div class="card-footer">
                                 <a href="{% url 'BrewReview:show_shop' review.shop_slug %}"
                                     class="btn btn-primary">View {{ review.shop_name }}</a>
+                                <a href="{% url 'BrewReview:remove_review' review.review_id %}" class="btn btn-danger">Remove Review</a>
                             </div>
                         </div>
                     </div>
@@ -128,6 +110,7 @@ Profile
                                                     <a class="btn btn-outline-dark mt-auto"
                                                         href="{% url 'BrewReview:show_shop' shop.slug %}">View
                                                         Shop</a>
+                                                    <a href="{% url 'BrewReview:remove_shop' shop.name %}" class="btn btn-danger">Remove Shop</a>
                                                 </div>
                                             </div>
                                         </div>

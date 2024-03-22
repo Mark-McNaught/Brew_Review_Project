@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from BrewReview.models import CoffeeShop, Review, SavedReviews, FavouriteShops
+from BrewReview.models import CoffeeShop, Review
 
 class CoffeeShopAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
@@ -9,16 +9,7 @@ class CoffeeShopAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('coffee_shop', 'user', 'rating', 'review', 'date')
 
-class SavedReviewsAdmin(admin.ModelAdmin):
-    list_display = ('save_id', 'review_id', 'user')
-
-class FavouriteShopsAdmin(admin.ModelAdmin):
-    list_display = ('fav_id', 'shop_id', 'user')
-
-
 
 
 admin.site.register(CoffeeShop, CoffeeShopAdmin)
 admin.site.register(Review, ReviewAdmin)
-admin.site.register(SavedReviews)
-admin.site.register(FavouriteShops)

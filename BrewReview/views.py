@@ -6,8 +6,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
 
+from django.shortcuts import redirect, get_object_or_404
+
+
 from BrewReview.forms import CoffeeShopForm, ReviewForm, ChangeUsernameForm
-from BrewReview.models import CoffeeShop, Review, FavouriteShops
+from BrewReview.models import CoffeeShop, Review
 
 import googlemaps
 
@@ -97,35 +100,7 @@ def show_shop(request, shop_slug):
     except CoffeeShop.DoesNotExist:
         context['shop'] = None
         context['reviews'] = None
-
-    is_favorite = False
-    if request.user.is_authenticated:
-        try:
-            favorite_shops = FavouriteShops.objects.get(user=request.user)
-            is_favorite = shop in favorite_shops.shop_id.all()
-        except FavouriteShops.DoesNotExist:
-            is_favorite = False
-
-    context['is_favorite'] = is_favorite
     return render(request, 'BrewReview/shop.html', context=context)
-
-
-@login_required
-def add_favorite(request, shop_slug):
-    shop = CoffeeShop.objects.get(slug=shop_slug)
-
-    # Get or create the favorite shops object
-    favorite_shops, created = FavouriteShops.objects.get_or_create(user=request.user)
-
-    # Check if the shop is already a favorite
-    if shop in favorite_shops.shop_id.all():
-        # If already favorited, remove from favorites
-        favorite_shops.shop_id.remove(shop)
-    else:
-        # Add to favorites
-        favorite_shops.shop_id.add(shop)
-
-    return redirect('BrewReview:show_shop', shop_slug=shop_slug)
 
 @login_required
 def add_shop(request):
@@ -156,6 +131,16 @@ def add_shop(request):
         else:
             print(form.errors)
     return render(request, 'BrewReview/add_shop.html', {'form': form})
+
+
+@login_required
+def remove_shop(request, shop_name):
+    shop = get_object_or_404(CoffeeShop, name=shop_name)
+    if request.user == shop.owner_id:
+        shop.delete()
+        return redirect('BrewReview:profile')
+
+
 
 @login_required
 def add_review(request, shop_slug):
@@ -188,6 +173,17 @@ def add_review(request, shop_slug):
         else:
             print(form.errors)
     return render(request, 'BrewReview/add_review.html', {'form': form, 'shop': shop})
+
+
+@login_required
+def remove_review(request, review_id):
+    try:
+        review = Review.objects.get(review_id=review_id)
+        if review.user == request.user:
+            review.delete()
+        return redirect('BrewReview:profile')
+    except:
+        return redirect('BrewReview:index')
 
 
 def searched(request):

@@ -40,14 +40,6 @@
                         <input type = "hidden" id="zoom" name="zoom" value = 16>
                         <label for="lat"></label>
                        <button type="submit">View shop on map</button>
-                </form>
-                <form action="#" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">
-                        {% if is_favorite %} Unfavorite {% else %} Add to Favorites {% endif %}
-                    </button>
-                </form>
-
             </div>
         </div>
 

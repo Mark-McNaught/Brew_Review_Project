@@ -148,31 +148,15 @@ class ReviewModelTest(TestCase):
         self.assertEqual(review.title, 'Test Review')
         self.assertEqual(review.rating, 5)
 
-class SavedReviewsModelTest(TestCase):
+# class FavouriteShopsModelTest(TestCase):
 
-    def test_saved_reviews_creation(self):
-        user = User.objects.create(username='saveuser')
-        review = Review.objects.create(
-            coffee_shop=CoffeeShop.objects.create(name='Test Coffee for Save'),
-            user=user,
-            title='Test Save Review',
-            rating=5,
-            review='This is a test save review'
-        )
-        saved_review = SavedReviews.objects.create()
-        saved_review.review_id.add(review)
-        saved_review.user.add(user)
-        self.assertEqual(saved_review.review_id.get(id=1), review)
-
-class FavouriteShopsModelTest(TestCase):
-
-    def test_favourite_shops_creation(self):
-        user = User.objects.create(username='favuser')
-        coffee_shop = CoffeeShop.objects.create(name='Test Coffee for Favourite')
-        favourite_shop = FavouriteShops.objects.create()
-        favourite_shop.shop_id.add(coffee_shop)
-        favourite_shop.user.add(user)
-        self.assertEqual(favourite_shop.shop_id.get(id=1), coffee_shop)
+#     def test_favourite_shops_creation(self):
+#         user = User.objects.create(username='favuser')
+#         coffee_shop = CoffeeShop.objects.create(name='Test Coffee for Favourite')
+#         favourite_shop = FavouriteShops.objects.create()
+#         favourite_shop.shop_id.add(coffee_shop)
+#         favourite_shop.user.add(user)
+#         self.assertEqual(favourite_shop.shop_id.get(id=1), coffee_shop)
 
 class URLTests(SimpleTestCase):
 

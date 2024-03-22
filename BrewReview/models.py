@@ -51,29 +51,3 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.review_id)
-
-
-class SavedReviews(models.Model):
-    # Table that stores refernces to users and their saved reviews
-    save_id = models.AutoField(primary_key=True)
-    review_id = models.ManyToManyField(Review)
-    user = models.ManyToManyField(User)
-
-    class Meta:
-        verbose_name_plural = 'SavedReviews'
-
-    def __str__(self):
-        return str(self.save_id)
-
-
-class FavouriteShops(models.Model):
-    # Table that stores refernces to users and their favourited coffee shops
-    fav_id = models.AutoField(primary_key=True)
-    shop_id = models.ManyToManyField(CoffeeShop)
-    user = models.ManyToManyField(User)
-
-    class Meta:
-        verbose_name_plural = 'FavouriteShops'
-
-    def __str__(self):
-        return str(self.fav_id)
