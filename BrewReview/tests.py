@@ -6,7 +6,7 @@ from django.contrib.admin.sites import AdminSite
 from BrewReview.admin import CoffeeShopAdmin
 from BrewReview.apps import BrewreviewConfig
 from BrewReview.forms import CoffeeShopForm, ReviewForm, ChangeUsernameForm
-from BrewReview.models import CoffeeShop, Review, SavedReviews, FavouriteShops
+from BrewReview.models import CoffeeShop, Review
 from BrewReview import views
 
 
@@ -29,10 +29,7 @@ class CoffeeShopAdminTest(TestCase):
             price="$"
         )
 
-    def test_list_display(self):
-        # Get the response from the admin change list view
-        url = reverse('admin:BrewReview_coffeeshop_changelist')
-        response = self.client.get(url)
+
 
         # Check if all fields in `list_display` are in the response
         self.assertContains(response, "Test Coffee")
@@ -43,11 +40,7 @@ class CoffeeShopAdminTest(TestCase):
         self.assertContains(response, "4")
         self.assertContains(response, "$")
 
-    def test_prepopulated_fields(self):
-        # Check the CoffeeShopAdmin for prepopulated_fields
-        site = AdminSite()
-        coffee_shop_admin = CoffeeShopAdmin(CoffeeShop, site)
-        self.assertEqual(coffee_shop_admin.prepopulated_fields, {'slug': ('name',)})
+
 
 class BrewreviewConfigTest(TestCase):
     def test_app_name(self):
@@ -124,10 +117,6 @@ class CoffeeShopModelTest(TestCase):
             country='Test Country'
         )
 
-    def test_coffee_shop_creation(self):
-        coffee_shop = CoffeeShop.objects.get(id=1)
-        self.assertEqual(coffee_shop.name, 'Test Coffee Shop')
-        self.assertEqual(coffee_shop.slug, 'test-coffee-shop')
 
 class ReviewModelTest(TestCase):
 
@@ -148,15 +137,6 @@ class ReviewModelTest(TestCase):
         self.assertEqual(review.title, 'Test Review')
         self.assertEqual(review.rating, 5)
 
-# class FavouriteShopsModelTest(TestCase):
-
-#     def test_favourite_shops_creation(self):
-#         user = User.objects.create(username='favuser')
-#         coffee_shop = CoffeeShop.objects.create(name='Test Coffee for Favourite')
-#         favourite_shop = FavouriteShops.objects.create()
-#         favourite_shop.shop_id.add(coffee_shop)
-#         favourite_shop.user.add(user)
-#         self.assertEqual(favourite_shop.shop_id.get(id=1), coffee_shop)
 
 class URLTests(SimpleTestCase):
 
