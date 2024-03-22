@@ -68,7 +68,14 @@ def map(request, center_lat=55.8724, center_lng=-4.2900, zoom=11):
 
 def shops(request):
     shops = CoffeeShop.objects.all()
-    context_dict = {'navbar_active':'shops', 'shops':shops}
+    filter_param = request.GET.get('filter', False)
+    if filter_param == "on":
+        filter_param = True
+        coffee_shop_list = CoffeeShop.objects.filter(serves_food=True)
+    else:
+        filter_param = False
+        coffee_shop_list = CoffeeShop.objects.all()
+    context_dict = {'navbar_active':'shops', 'shops':shops, 'filter_param':filter_param}
     return render(request, 'BrewReview/shops.html', context=context_dict)
 
 def show_shop(request, shop_slug):

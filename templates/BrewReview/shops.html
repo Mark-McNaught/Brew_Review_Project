@@ -26,6 +26,11 @@
 
     <div class="container-fluid">
         Filter By :
+    <form action="{% url 'BrewReview:shops' %}" method ="GET">
+        <input type="checkbox" id="filter_checkbox" name="filter" {% if filter_param %}checked{% endif %}>
+        <label for="filter_checkbox">Serves food</label>
+        <button type="submit">Apply Filter</button>
+    </form>
         <div></div>
         Sort By :
     </div>
