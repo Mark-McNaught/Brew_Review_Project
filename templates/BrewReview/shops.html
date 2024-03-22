@@ -23,22 +23,22 @@
                 </form>
         </div>
     </header>
+    <br>
 
     <div class="container-fluid">
-        Filter By :
+        <form action="{% url 'BrewReview:shops' %}" method="GET" class="form-inline">
+            <label class="mr-2" for="sort_by">Sort By:</label>
+            <button type="submit" name="sort_by" value="rating_desc">Rating (High to Low)</button>
+            <button type="submit" name="sort_by" value="price_desc">Price (High to Low)</button>
+        </form>
+    </div>
+
+    <div class="container-fluid">
     <form action="{% url 'BrewReview:shops' %}" method ="GET">
         <input type="checkbox" id="filter_checkbox" name="filter" {% if filter_param %}checked{% endif %}>
         <label for="filter_checkbox">Serves food</label>
         <button type="submit">Apply Filter</button>
     </form>
-    <div></div>
-    <div class="container-fluid">
-        Sort By:
-            <form action="{% url 'BrewReview:shops' %}" method="GET">
-                <button type="submit" name="sort_by" value="rating_desc">Rating (High to Low)</button>
-                <button type="submit" name="sort_by" value="price_desc">Price (High to Low)</button>
-            </form>
-        </div>
     </div>
 
 
