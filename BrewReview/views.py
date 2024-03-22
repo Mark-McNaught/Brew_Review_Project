@@ -242,5 +242,8 @@ def profile(request):
     except:
         shops = None
         recent_reviews = None
-    owned_shops = CoffeeShop.objects.filter(owner_id=user_id)
+    try:
+        owned_shops = CoffeeShop.objects.filter(owner_id=user_id)
+    except:
+        owned_shops = None
     return render(request, 'BrewReview/profile.html', context = {'navbar_active':'profile', 'recent_reviews': recent_reviews, 'shops':shops, 'owned_shops':owned_shops})
