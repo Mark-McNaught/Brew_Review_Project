@@ -99,10 +99,11 @@ Profile
                             {% for shop in shops %}
                             <div class="col-md-4 mb-5">
                                 <div class="card h-100">
-                                    <!--when shops have images {{ shop.image_location_folder.url }}-->
-                                    <img class="card-imp-top"
-                                        src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
-                                        alt="..." />
+                                    {% if shop.picture %}
+                                        <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
+                                    {% else %}
+                                        <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                                    {% endif %}
                                     <div class="card-body p4">
                                         <div class="text-center">
                                             <h5 class="fw-bolder">{{ shop.name }}</h5>
@@ -130,13 +131,14 @@ Profile
                     <div class="custom-container h-100">
                         <h1 class="display-2">Favourite Shops</h1>
                         <div class="row">
-                            {% for shop in favourite_shops %}
+                            {% for shop in favourites %}
                             <div class="col-md-4 mb-5">
                                 <div class="card h-100">
-                                    <!--when shops have images {{ shop.image_location_folder.url }}-->
-                                    <img class="card-imp-top"
-                                        src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
-                                        alt="..." />
+                                    {% if shop.picture %}
+                                        <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
+                                    {% else %}
+                                        <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                                    {% endif %}
                                     <div class="card-body p4">
                                         <div class="text-center">
                                             <h5 class="fw-bolder">{{ shop.name }}</h5>

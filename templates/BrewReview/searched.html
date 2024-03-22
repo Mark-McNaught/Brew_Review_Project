@@ -11,9 +11,11 @@
                     {% for CoffeeShop in shops %}
                     <div class="col mb-5">
                         <div class="card h-100">
-                        <!--when shops have images {{ shop.image_location_folder.url }}-->
-                            <img class="card-imp-top" src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png"
-                                alt="..." />
+                        {% if shop.picture %}
+                                <img src="{{ shop.picture.url }}" class="img-fluid" alt="{{ shop.name }}">
+                            {% else %}
+                                <img src="https://icons.iconarchive.com/icons/iconarchive/fat-sugar-food/256/Drink-Coffee-icon.png" class="img-fluid" alt="{{ shop.name }}">
+                            {% endif %}
                             <div class="card-body p4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder">{{CoffeeShop.name}}</h5>
