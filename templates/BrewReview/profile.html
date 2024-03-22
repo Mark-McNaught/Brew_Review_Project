@@ -41,30 +41,10 @@ Profile
     </div>
 </div>
 
-<style>
-    /* Custom CSS */
-    .custom-container {
-        border: 2px solid black;
-        border-radius: 10px;
-        padding: 20px;
-        background-color: #fff; /* Optional: Set background color */
-    }
-
-    #clickable {
-        cursor: pointer;
-    }
-</style>
-
-<script>
-    function redirectToNewPage() {
-        window.location.href = "{% url 'BrewReview:map' %}";
-    }
-</script>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="custom-container h-100">
+            <div class="custom-container_2 h-100">
                 <h1 class="display-2">Recent Reviews</h1>
                 <div class="row">
                     {% for review in recent_reviews %}
@@ -93,7 +73,7 @@ Profile
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12 mb-4">
-                    <div class="custom-container h-100">
+                    <div class="custom-container_2 h-100">
                         <h1 class="display-2">Recently Visited</h1>
                         <div class="row">
                             {% for shop in shops %}
@@ -128,7 +108,7 @@ Profile
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="custom-container h-100">
+                    <div class="custom-container_2 h-100">
                         <h1 class="display-2">Favourite Shops</h1>
                         <div class="row">
                             {% for shop in favourites %}

@@ -2,26 +2,11 @@
 {% load staticfiles %}
 
 {% block header_block %}
-<style>
-    /* Custom CSS */
-    .custom-container {
-      border: 2px solid black;
-      border-radius: 10px;
-      padding: 20px;
-      background-color: #fff; /* Optional: Set background color */
-    }
-
-    #clickable {
-            cursor: pointer;
-        }
-  </style>
-
 <script>
     function redirectToNewPage() {
         window.location.href = "{% url 'BrewReview:map' %}";
     }
 </script>
-
 {% endblock %}
 
 {% block title_block %}
@@ -46,7 +31,7 @@
     <div class="row">
       <!-- Left Half -->
       <div class="col-md-6">
-        <div class="custom-container h-100">
+        <div class="custom-container_2 h-100">
           <h1 class="display-2">Welcome to BrewReview</h1>
           <div class="row">
             <div class="col-md-6">
@@ -64,7 +49,7 @@
       </div>
 
 <div class="col-md-6">
-    <div class="custom-container h-100">
+    <div class="custom-container_2 h-100">
       <h1 class="display-2">Recent Reviews</h1>
       <div class="row">
         {% for review in recent_reviews %}
@@ -87,7 +72,4 @@
       </div>
     </div>
   </div>
-  
-  
-
 {% endblock %}
